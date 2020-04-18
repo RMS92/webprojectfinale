@@ -36,7 +36,7 @@
         {
             //on cherche l'item avec les paramètres intitulé et catégorie
             $sql .= " WHERE nom LIKE '%$intitule%'";
-            if ($categorie != "") 
+            if ($categorie != "aucune") 
             {
                 $sql .= " AND categorie LIKE '%$categorie%'";
             }
@@ -48,7 +48,7 @@
         {
             //l'item est déjà dans la BDD
             echo "Vous avez déjà crée une vente pour cet item. Veuillez réessayer avec un autre item<br>";?>
-            <a href="vendre.php">Revenir à la page précédente</a><?php
+            <a href="<?php echo "vendre.php?id_vendeur=".$id_vendeur."" ?>">Revenir à la page précédente</a><?php
         } 
         else 
         {
@@ -84,7 +84,7 @@
                     $result = mysqli_query($db_handle, $sql);
                     
                     echo "Félicitations !<br>". ' ' ."La vente a commencé !";
-                    ?><a href="main.php">Revenir à la page d'accueil</a><?php
+                    ?><a href="<?php echo "main.php?id_vendeur=".$id_vendeur."" ?>">Revenir à la page d'accueil</a><?php
                 }
                 else
                 {
@@ -111,7 +111,7 @@
                 $result = mysqli_query($db_handle, $sql);
                 
                 echo "Félicitations !<br>". ' ' ."La vente a commencé !";
-                ?><a href="main.php">Revenir à la page d'accueil</a><?php
+                ?><a href="<?php echo "main.php?id_vendeur=".$id_vendeur."" ?>">Revenir à la page d'accueil</a><?php
             }
             elseif(($n_vente_1=="AchatImmediat")&&($n_vente_2==""))
             {
@@ -132,7 +132,7 @@
                 $result = mysqli_query($db_handle, $sql);
                 
                 echo "Félicitations !<br>". ' ' ."La vente a commencé !";
-                ?><a href="main.php">Revenir à la page d'accueil</a><?php
+                ?><a href="<?php echo "main.php?id_vendeur=".$id_vendeur."" ?>">Revenir à la page d'accueil</a><?php
             }
             elseif((($n_vente_1=="MeilleuresOffres")&&($n_vente_2=="AchatImmediat"))||(($n_vente_2=="MeilleuresOffres")&&($n_vente_1=="AchatImmediat")))
             {
@@ -158,7 +158,7 @@
                 $result = mysqli_query($db_handle, $sql);
 
                 echo "Félicitations !<br>". ' ' ."La vente a commencé !";
-                ?><a href="main.php">Revenir à la page d'accueil</a><?php
+                ?><a href="<?php echo "main.php?id_vendeur=".$id_vendeur."" ?>">Revenir à la page d'accueil</a><?php
             }
             elseif((($n_vente_1=="AchatImmediat")&&($n_vente_2=="Encheres"))||(($n_vente_2=="AchatImmediat")&&($n_vente_1=="Encheres")))
             {   
@@ -186,18 +186,18 @@
                     $result = mysqli_query($db_handle, $sql);
 
                     echo "Félicitations !<br>". ' ' ."La vente a commencé !";
-                    ?><a href="main.php">Revenir à la page d'accueil</a><?php
+                    ?><a href="<?php echo "main.php?id_vendeur=".$id_vendeur."" ?>">Revenir à la page d'accueil</a><?php
                 }
                 else
                 {
                     echo "Vous avez choisi une enchère mais vous n'avez pas renseigné les élèments nécessaire pour une mise en vente de ce type.";
-                    ?><a href="vendre.php">Revenir à la page précédente</a><?php
+                    ?><a href="<?php echo "vendre.php?id_vendeur=".$id_vendeur."" ?>">Revenir à la page précédente</a><?php
                 }
             }
             else
             {
                 echo "Erreur : la vente ne peut s'effectuer. Veuillez contacter le service client.";
-                ?><a href="main.php">Revenir à la page d'accueil</a><?php
+                ?><a href="<?php echo "main.php?id_vendeur=".$id_vendeur."" ?>">Revenir à la page d'accueil</a><?php
             }
         }
     }

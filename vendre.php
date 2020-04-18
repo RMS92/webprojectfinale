@@ -228,11 +228,38 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 					<form action="ajout_item.php" method="post" enctype="multipart/form-data">
 					<h4 class="style" style="margin-left: 150px; margin-top: 10px;"><form action="ajout_item.php" method="POST">
-						     <p><label>Id :<input type="text" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" /></label></p>
-                            <p><label>Nom :<input type="text" name="Intitule" /></label></p>
-                            <p><label>Prix :<input type="number" name="Prix" /> €</label></p>
-                            <p><label>Catégorie :<input type="text" name="Categorie" /></label></p>
-                            <p><label>Description :<input type="text area" rows="6" name="Description" /></label></p>
+
+
+						<table>
+							<tr>
+								<td>Id :</td>
+								<td><input type="text"  style="margin-top: 10px;" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" /></td>
+							</tr>
+							<tr>
+								<td>Nom :</td>
+								<td><input type="text" style="margin-top: 10px;" name="Intitule" /></td>
+							</tr>
+							<tr>
+								<td>Prix :</td>
+								<td><input type="text" style="margin-top: 10px;" name="Prix" placeholder="En euros" /></td>
+							</tr>
+							<tr>
+								<td>Catégorie :</td>
+								<td>
+								<select name="Categorie" style="margin-top: 10px;">
+										<option>aucune</option>
+										<option>feraille ou tresor</option>
+										<option>bon pour le muse</option>
+										<option>accesoires vip</option>
+									    </select></td>
+							</tr>
+							<tr>
+								<td>Description :</td>
+								<td><input type="text area" rows="6"  style="margin-top: 10px;"name="Description" /></td>
+							</tr>
+						</table>
+						    
+                            
                             <p><label>Nature de la première vente :
                                 <div><input type="radio" name="NatureVente1" value="Encheres" /><label>Encheres</label></div>
                                 <div><input type="radio" name="NatureVente1" value="MeilleuresOffres" /><label>Meilleures Offres</label></div>
