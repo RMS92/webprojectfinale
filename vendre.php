@@ -90,7 +90,6 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -225,23 +224,35 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			</div>
 
 			<div class="row" style="margin-top: 15px; margin-bottom: 15px;">
-				<div class="col-lg-6 col-md-6 col-md-6" style="height: 500px;">
+				<div class="col-lg-6 col-md-6 col-md-6" style="height: 1200px;">
 
-					<h4 class="style" style="margin-left: 150px; margin-top: 10px;">Titre et description</h4>
-					<a href="??"><h6 class="style" style="cursor:pointer;background: black; color: white; margin-top: 57px; margin-left: -150px;">SELL NOW</h6></a>
-					<img class = "style" src="images/panier.png" alt="" width="300" height="300" style="margin-top: 40px;margin-left: 110px;"> 
+					<form action="ajout_item.php" method="post" enctype="multipart/form-data">
+					<h4 class="style" style="margin-left: 150px; margin-top: 10px;"><form action="ajout_item.php" method="POST">
+                            <p><label>Nom :<input type="text" name="Intitule" /></label></p>
+                            <p><label>Prix :<input type="number" name="Prix" /> €</label></p>
+                            <p><label>Catégorie :<input type="text" name="Categorie" /></label></p>
+                            <p><label>Description :<input type="text area" rows="6" name="Description" /></label></p>
+                            <p><label>Nature de la première vente :
+                                <div><input type="radio" name="NatureVente1" value="Encheres" /><label>Encheres</label></div>
+                                <div><input type="radio" name="NatureVente1" value="MeilleuresOffres" /><label>Meilleures Offres</label></div>
+                                <div><input type="radio" name="NatureVente1" value="AchatImmediat" /><label>Achat Immediat</label></div>
+                                </label></p>
+                            <p><label>Nature de la deuxième vente (optionnelle):
+                                <div><input type="radio" name="NatureVente2" value="Encheres" /><label>Encheres</label></div>
+                                <div><input type="radio" name="NatureVente2" value="MeilleuresOffres" /><label>Meilleures Offres</label></div>
+                                <div><input type="radio" name="NatureVente2" value="AchatImmediat" /><label>Achat Immediat</label></div>
+                                </label></p>
+                            <p>Si vous avez choisi une enchère, veuillez renseigner les champs suivants : <p>
+                            <p><label>Date de fin de l'enchère :<input type="date" name="Date" /></label></p>
+                            <p><label>Heure de fin de l'enchère :<input type="time" name="Heure" min="09:00" max="18:00" /></label></p>
+                            <p><label>Prix de départ des enchères :<input type="number" name="PrixE" /> €</label></p>
+                            <p><label>Photo :<input type="file" name="Photo" accept="image/*"/></label></p>
+                            <p><label>Video :<input type="file" name="Video" accept="video/*"/></label></p>
+                            <p><input type="submit" value="Ajouter l'item" /></p>
+                        </form>
+					
 
-					<h6 class="style" style="background: black; color: white; margin-top: 350px;margin-left: -270px;">catégorie:</h6>
-					<input type="text" name=""  placeholder="categorie" style="margin-top: 405px; margin-left: -190px; height: 28px;width: 150px;cursor: pointer; -webkit-border-radius:5px;">
-                <table>
-				     <tr>
-				     	<td><h6 class="style"  style="background: black; color: white; margin-top: 5px;margin-left: 138px;" >Prix(souhaité):</h6></td>
-				     	<td><input type="text" name="" style="width: 70px;cursor: pointer; -webkit-border-radius:5px;" placeholder="Prix"></td>
-				     </tr>
-				</table>
-				     
-
-					<h6 class="style" style="background: black; color: white; margin-top: 0px; margin-left: 138px">Best bid(seller):</h6>
+					</h4>
 					
 
 					
