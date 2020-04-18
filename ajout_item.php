@@ -2,6 +2,8 @@
     
     
     // Décalaration des variables qui sont affectés aux valeurs saisies dans le formulaire par l'utilisateur 
+    $id_vendeur = isset($_POST["id_vendeur"])? $_POST["id_vendeur"] : "";
+    
     $intitule = isset($_POST["Intitule"])? $_POST["Intitule"] : "";
     $prix = isset($_POST["Prix"])? $_POST["Prix"] : "";
     $categorie = isset($_POST["Categorie"])? $_POST["Categorie"] : "";

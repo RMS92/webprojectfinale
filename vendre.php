@@ -228,6 +228,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 					<form action="ajout_item.php" method="post" enctype="multipart/form-data">
 					<h4 class="style" style="margin-left: 150px; margin-top: 10px;"><form action="ajout_item.php" method="POST">
+						     <p><label>Id :<input type="text" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" /></label></p>
                             <p><label>Nom :<input type="text" name="Intitule" /></label></p>
                             <p><label>Prix :<input type="number" name="Prix" /> €</label></p>
                             <p><label>Catégorie :<input type="text" name="Categorie" /></label></p>

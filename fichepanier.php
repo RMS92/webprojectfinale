@@ -100,6 +100,28 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     }
 
 
+    if(isset($_POST['valider'])) 
+     {
+     	$pays = htmlspecialchars($_POST['pays']);
+     	$prenom = htmlspecialchars($_POST['prenom']);
+     	$nom = htmlspecialchars($_POST['nom']);
+     	$rue = htmlspecialchars($_POST['rue']);
+     	$region = htmlspecialchars($_POST['region']);
+     	$code = htmlspecialchars($_POST['code']);
+     	$ville = htmlspecialchars($_POST['ville']);
+     	$tel = htmlspecialchars($_POST['tel']);
+
+     	if(!empty($_POST['pays']) AND !empty($_POST['prenom']) AND !empty($_POST['nom']) AND !empty($_POST['rue']) AND !empty($_POST['region']) AND !empty($_POST['code']) AND !empty($_POST['ville']) AND !empty($_POST['tel']))
+     	{
+
+     	}
+     	else
+     	{
+     		$erreur = "Tous les champs doivent etre complétés !";
+     	}
+     }
+
+
 ?>
 
 
@@ -266,30 +288,38 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 					<h3 class="style" style="margin-left: 40px; margin-top: 20px;">Shipping</h3>
 
-					<form>
+					<form method="POST">
 						<table style="margin-top: 90px; margin-left: 100px;">
 							<tr>
-								<td><input type="text" name="" value="Country" style="cursor: pointer; -webkit-border-radius:5px; " required></td>
+								<td><input type="text" name="pays" placeholder="Country" style="cursor: pointer; -webkit-border-radius:5px;"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="" value="First name" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px;" required></td>
-								<td><input type="text" name="" value="Last name" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px" required></td>
+								<td><input type="text" name="prenom" placeholder="First name" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px;"></td>
+								<td><input type="text" name="nom" placeholder="Last name" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="" value="Street adress" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px" required></td>
+								<td><input type="text" name="rue" placeholder="Street adress" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="" value="Region" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px" required></td>
+								<td><input type="text" name="region" placeholder="Region" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"></td>
+							</tr>
+							
+							<tr>
+								<td><input type="text" name="ville" placeholder="Ville" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"></td>
+								<td><input type="text" name="code" placeholder="Postal code" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="" value="Region" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px" required></td>
-								<td><input type="text" name="" value="Postal code" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px" required></td>
-							</tr>
-							<tr>
-								<td><input type="text" name="" value="Tel number" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px" required></td>
+								<td><input type="text" name="tel" placeholder="Tel number" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px"></td>
+								<td><input type="submit" name="valider" value="valider" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px"></td>
 							</tr>
 						</table>
 					</form>
+
+					<?php
+				        if(isset($erreur)){
+					      echo '<p style="margin-left:120px; color:red">'. $erreur."</p>";
+				           }
+				     ?>
 					
 
 					
