@@ -3,7 +3,7 @@ session_start();
 
 $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
 
-if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0) OR (!isset($_GET['id_vendeur']) AND isset($_GET['id_acheteur'])) OR (isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR (!isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR isset($_GET['pseudo_admin']))
+if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0) OR (!isset($_GET['id_vendeur']) AND isset($_GET['id_acheteur'])) OR (isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR (!isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR isset($_GET['pseudo_admin']) OR isset($_GET['item']))
 {
 
     $changemain = "main.php";
@@ -45,7 +45,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecompteC = "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
 
-            $changepanier =  "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
+            $changepanier =  "panier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$_GET['item']."";
 
 
 	    }
@@ -97,9 +97,17 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
 
-             $changepanier =  "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
+             $changepanier =  "panier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$_GET['item']."";
 	    }
     }
+
+         
+    	 $getarticle = $_GET['item'];
+    	 $requser = $bdd->prepare("SELECT * FROM produit WHERE id_produit= ?");
+	     $requser->execute(array($getarticle));
+	     $articleinfos= $requser->fetch();
+    
+
 
 
 ?>
@@ -238,11 +246,31 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			<div class="row" style="margin-top: 15px; margin-bottom: 15px;">
 				<div class="col-lg-6 col-md-6 col-md-6" style="height: 500px;">
 
-					<h4 class="style" style="margin-left: 150px; margin-top: 10px;">Titre et description</h4>
-					<a href="<?php echo $changepanier  ?>"><h6 class="style" style="cursor:pointer;background: black; color: white; margin-top: 70px; margin-left: -150px;">BUY NOW</h6></a>
-					<img class = "style" src="images/panier.png" alt="" width="300" height="300" style="margin-top: 65px;margin-left: 110px;"> 
+					<h4 class="style" style="margin-left: 150px; margin-top: 10px;"><?php echo $articleinfos['nom'];?></h4>
+					<a 
+					  <?php if(isset($_GET['id_acheteur']) OR isset($_GET['pseudo_admin']))
+					  {?>
+					     href="<?php echo $changepanier ?>">
+					  <?php
+					  }
+					  else
+					  {?>
+					  	
+					  	<?php
+					  }?>
+
+
+
+
+
+					<h6 class="style" style="cursor:pointer;background: black; color: white; margin-top: 70px; margin-left: -150px;">BUY NOW</h6></a>
+
+
+
+
+					<img class = "style" src="<?php echo $articleinfos['photo'];?>" alt="" width="300" height="300" style="margin-top: 65px;margin-left: 110px;"> 
  
-				     <h6 class="style" style="background: black; color: white; margin-top: 390px;margin-left:150px; margin-left: -250px">Prix:</h6>
+				     <h6 class="style" style="background: black; color: white; margin-top: 390px;margin-left:150px; margin-left: -250px">Prix: <?php echo $articleinfos['prix'];?></h6>
 					<h6 class="style" style="background: black; color: white;margin-top: 390px; margin-left: -125px;">Best bid(buyer):</h6>
 					
 

@@ -3,7 +3,7 @@ session_start();
 
 $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
 
-if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0) OR (!isset($_GET['id_vendeur']) AND isset($_GET['id_acheteur'])) OR (isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR (!isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR isset($_GET['pseudo_admin']))
+if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0) OR (!isset($_GET['id_vendeur']) AND isset($_GET['id_acheteur'])) OR (isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR (!isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR isset($_GET['pseudo_admin']) OR isset($_GET['item']) )
 {
 
     $changemain = "main.php";
@@ -120,6 +120,11 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
      		$erreur = "Tous les champs doivent etre complétés !";
      	}
      }
+
+         $getarticle = $_GET['item'];
+    	 $requser = $bdd->prepare("SELECT * FROM produit WHERE id_produit= ?");
+	     $requser->execute(array($getarticle));
+	     $articleinfos= $requser->fetch();
 
 
 ?>
@@ -259,9 +264,9 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			<div class="row" style="margin-top: 15px; margin-bottom: 15px;">
 				<div class="col-lg-6 col-md-6 col-md-6" style="height: 500px;">
 		
-					<img class = "style" src="images/panier.png" alt="" width="300" height="300" style="margin-top: 20px;margin-left: 110px;"> 
+					<img class = "style" src="<?php echo $articleinfos['photo'];?>" alt="" width="300" height="300" style="margin-top: 20px;margin-left: 110px;"> 
 
-					<h4 class="style" style="margin-left: 150px; margin-top: 10px;">Titre et description</h4>
+					<h4 class="style" style="margin-left: 150px; margin-top: 10px;"><?php echo $articleinfos['nom'];?> </h4>
 
 					<table>
 						<tr>
@@ -273,13 +278,13 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
                 <table>
 				     <tr>
-				     	<td><h6 class="style"  style="background: black; color: white; margin-top: 5px;margin-left: 138px;" >Prix total:</h6></td>
-				     	<td><input type="text" name="" style="width: 70px;cursor: pointer; -webkit-border-radius:5px;" placeholder="Prix"></td>
+				     	<td><h6 class="style"  style="background: black; color: white; margin-top: 5px;margin-left: 138px;" >Prix total:  $</h6></td>
+				     	<td><input type="text" name="" style="width: 70px;cursor: pointer; -webkit-border-radius:5px;" value="<?php echo $articleinfos['prix'];?>"></td>
 				     </tr>
 				</table>
 				     
 
-					<a href="<?php echo  $changepaiement ?>"><input type="button" name=""  value="paiement" class="style" style="background: black; color: white; margin-top: 0px; margin-left: 185px; width: 150px; cursor: pointer; -webkit-border-radius:5px;"></a>
+					<a href="<?php echo "fichepanier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$_GET['item']."" ?>"><input type="button" name=""  value="paiement" class="style" style="background: black; color: white; margin-top: 0px; margin-left: 185px; width: 150px; cursor: pointer; -webkit-border-radius:5px;"></a>
 					
 
 					

@@ -99,6 +99,8 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
+    $userinfosA = $bdd->query("SELECT * FROM produit WHERE categorie = 'accesoires vip'"); 
+
 
 ?>
 
@@ -229,86 +231,97 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12" style="height:45px; color: white; background-color: black">
-					<h3> Accessoire VIP</h3>
+					<h3> Ferraille ou Trésor</h3>
 				</div>
 
 			</div>
 
 			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12" style="height:660px;">
+				<div class="col-lg-12 col-md-12 col-sm-12" style="">
 
 					<div class="row">
 				        <div class="col-lg-2 col-md-2 col-sm-12" style="border: 1px solid black; margin-left: 5px; margin-top: 10px;">
-				        	<table style="margin-left: 22px">
-				        		<tr>
-				        			<td  ><h6 class="style" style="margin-top: 7px; ">Les mieux notés</h6></td>
-				        		</tr>
-				        		<tr>
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
-				        		</tr>
-				        		<tr>
-				        			<td><h6 class="style" style="margin-top: 10px;margin-left: 10px;">prix:</h6></td>
-				        		</tr>
-				        		<tr>
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
-				        		</tr>
-				        		<tr>
-				        			<td><h6 class="style" style="margin-top: 10px;margin-left: 10px;" >prix:</h6></td>
-				        		</tr>
-				        		<tr>
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
-				        		</tr>
-				        		<tr>
-				        			<td><h6 class="style" style="margin-top: 10px;margin-left: 10px;">prix:</h6></td>
-				        		</tr>
-				        	</table>
-							        </div>
 
-				        <div class="col-lg-8 col-md-8 col-sm-12" style="width: 500px; height: 650px">
+				        	<h6 class="style" style="margin-top: 10px;">Les mieux notés</h6>
 
-				        	<table style="">
-				        		<tr>
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
+                            
+                            <ul style="list-style: none;">
+							<?php for ($i=0; $i < 3 ; $i++) { 
+								# code...
+							  $info = $userinfosA->fetch()?>
 
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
+							<li class = "style" style="margin-top: 25px; margin-left: -25px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="125" height="125"><?= $info['prix'] ?>$ <a 
+								<?php if(isset($_GET['id_acheteur']))
+								{?>
+								href="<?php echo "achatbid.php?id_acheteur=".$_GET['id_acheteur']."&item=".$info['id_produit']."" ?>" 
+                                <?php
+							    }?> 
 
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
-				        		</tr>
-				        		<tr>
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
+							    <?php if(isset($_GET['id_vendeur']))
+								{?>
+								href="<?php echo "achatbid.php?id_vendeur=".$_GET['id_vendeur']."&item=".$info['id_produit']."" ?>"
+                                <?php
+							    }?> 
 
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
+							    <?php if(isset($_GET['pseudo admin']))
+								{?>
+								href="<?php echo "achatbid.php?id_pseudo admin=".$_GET['id_pseudo admin']."&item=".$info['id_produit']."" ?>" 
+                                <?php
+							    }?> 
 
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
+							    <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo']))
+								{?>
+								href="<?php echo "achatbid.php?item=".$info['id_produit']."" ?>"> 
+                                <?php
+							    }?> 
+							    
+							    
+								<br>acheter</a> </li>
+							<?php
+						     }
+							?>
+					        </ul>
+					     </div>
 
-				        		</tr>
-				        		<tr>
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
+				        	  
+				        <div class="col-lg-9 col-md-9 col-sm-12" style="border: 1px solid black;margin-left: 20px; margin-top: 10px;">
 
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
+				        	<ul style="list-style: none;text-align: center; margin-left: -30px;">
+							<?php for ($i=0; $i < $info = $userinfosA->fetch(); $i++) { 
+								    
+								# code...
+							 ?>
 
-				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
-				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
-				        			</a></td>
+							<li class = "style" style="margin-top: 25px; margin-left: 15px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br><?= $info['prix'] ?>$ 
+								<a <?php if(isset($_GET['id_acheteur']))
+								{?>
+								href="<?php echo "achatbid.php?id_acheteur=".$_GET['id_acheteur']."&item=".$info['id_produit']."" ?>" 
+                                <?php
+							    }?> 
 
-				        		</tr>
-				        	</table>
+							    <?php if(isset($_GET['id_vendeur']))
+								{?>
+								href="<?php echo "achatbid.php?id_vendeur=".$_GET['id_vendeur']."&item=".$info['id_produit']."" ?>"
+                                <?php
+							    }?> 
+
+							    <?php if(isset($_GET['pseudo admin']))
+								{?>
+								href="<?php echo "achatbid.php?id_pseudo admin=".$_GET['id_pseudo admin']."&item=".$info['id_produit']."" ?>" 
+                                <?php
+							    }?> 
+
+							    <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo']))
+								{?>
+								href="<?php echo "achatbid.php?item=".$info['id_produit']."" ?>"> 
+                                <?php
+							    }?>  <br> acheter</a> </li>
+
+							<?php
+							  
+						     }
+							?>
+					        </ul>
 				        	
 				        </div>
 
@@ -318,6 +331,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		</div>
 
 	</div>			
+	
 
 
 	<!--FOOTER ---------------------------------------------------------->
