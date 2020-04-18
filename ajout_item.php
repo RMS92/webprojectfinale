@@ -65,7 +65,7 @@
                 if(($date!="")&&($prix_enchere!=""))
                 {
                     // Insertion d'un nouvel item
-                    $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video')";
+                     $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video, id_vendeur) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video','$id_vendeur')";
                     
                     $result = mysqli_query($db_handle, $sql) or die(mysqli_error($db_handle));
                		$sql = "SELECT * FROM produit ";
@@ -92,7 +92,7 @@
             elseif(($n_vente_1=="MeilleuresOffres")&&($n_vente_2==""))
             {
                 // Insertion d'un nouvel item
-                $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video')";
+                 $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video, id_vendeur) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video','$id_vendeur')";
 
                 $result = mysqli_query($db_handle, $sql) or die(mysqli_error($db_handle));
                 $sql = "SELECT * FROM produit ";
@@ -114,7 +114,7 @@
             elseif(($n_vente_1=="AchatImmediat")&&($n_vente_2==""))
             {
                 // Insertion d'un nouvel item
-                $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video')";
+                $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video, id_vendeur) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video','$id_vendeur')";
 
                 $result = mysqli_query($db_handle, $sql) or die(mysqli_error($db_handle));
                 $sql = "SELECT * FROM produit ";
@@ -135,7 +135,7 @@
             elseif((($n_vente_1=="MeilleuresOffres")&&($n_vente_2=="AchatImmediat"))||(($n_vente_2=="MeilleuresOffres")&&($n_vente_1=="AchatImmediat")))
             {
                 // Insertion d'un nouvel item
-                $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video')";
+                $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video, id_vendeur) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video','$id_vendeur')";
                 
                 $result = mysqli_query($db_handle, $sql) or die(mysqli_error($db_handle));
                 $sql = "SELECT * FROM produit ";
@@ -163,8 +163,7 @@
                 if(($date!="")&&($prix_enchere!=""))
                 {
                     // Insertion d'un nouvel item
-                    $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video')";
-                    
+                    $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video, id_vendeur) VALUES ('$intitule', '$prix', '$categorie', '$description', '$tmp_name', '$video','$id_vendeur')";
 
                      $result = mysqli_query($db_handle, $sql) or die(mysqli_error($db_handle));
 	                $sql = "SELECT * FROM produit ";
