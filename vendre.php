@@ -232,8 +232,8 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 						<table>
 							<tr>
-								<td>Id :</td>
-								<td><input type="text"  style="margin-top: 10px;" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" /></td>
+								<td></td>
+								<td><input type="hidden"  style="margin-top: 10px;" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" /></td>
 							</tr>
 							<tr>
 								<td>Nom :</td>
@@ -247,7 +247,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 								<td>Catégorie :</td>
 								<td>
 								<select name="Categorie" style="margin-top: 10px;">
-										<option>aucune</option>
+										
 										<option>feraille ou tresor</option>
 										<option>bon pour le muse</option>
 										<option>accesoires vip</option>
