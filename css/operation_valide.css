@@ -1,0 +1,90 @@
+body {
+     padding: 0px;
+     margin: 0px;
+     background: white;
+}
+
+.colorbar {
+     background: white;
+}
+
+.bouton {
+	background: url(images/loupe.png);
+
+	background-repeat: no-repeat;
+	width: 35px;
+	height: 35px;
+	margin-top: 12px;
+}
+
+.petitlogo{
+	margin-top: 12px;
+	margin-left: 22px;
+}
+
+.nav-link {
+     color: #000;
+     cursor: pointer; /*change le pointeur*/
+}
+
+.nav-link:hover {
+     color: rgb(0,113,121); /*couleurs passe dessus*/
+     font-weight: 700;
+}
+
+.stylelist {
+    list-style: none; /* enlever les puces */
+    margin-top: 10px; /*margin cases*/
+    margin-left: 10px;
+    padding: 0px;/* enlever les marges automatiques */
+   
+
+}
+ 
+.align {
+    display: table-cell; /* affichage en ligne */
+}
+
+.style {
+     display:block;   /*style list de case */
+     float:left;   
+     background-color:#fff;
+     color:black;
+     text-decoration:none;
+     text-align:center;
+     padding:3px;
+     border:1px solid;
+     /*pour avoir un effet "outset" avec IE :*/
+     border-color:#DCDCDC #696969 #696969 #DCDCDC;
+}
+/* MILIEU*/
+
+
+
+
+/*FOOTER*/
+.footbar {
+	background: black;
+	color: white;
+}
+
+.footer-link {
+	cursor: pointer;
+}
+
+.footer-link:hover {
+     color: rgb(0,113,121); /*couleurs passe dessus*/
+     font-weight: 700;
+}
+
+.stylefooter {
+     display:block;/*style list de case */
+     float:left;   
+     background-color:#000;
+     color: white;
+     font-weight: 700;
+     text-decoration:none;
+     text-align:center;
+     padding:3px;
+     /*pour avoir un effet "outset" avec IE :*/
+}

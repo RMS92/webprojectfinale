@@ -1,0 +1,248 @@
+body {
+     padding: 0px;
+     margin: 0px;
+     background: white;
+}
+
+.colorbar {
+     background: white;
+}
+
+.bouton {
+	background: url(images/loupe.png);
+
+	background-repeat: no-repeat;
+	width: 35px;
+	height: 35px;
+	margin-top: 12px;
+}
+
+.petitlogo{
+	margin-top: 12px;
+	margin-left: 22px;
+}
+
+.nav-link {
+     color: #000;
+     cursor: pointer; /*change le pointeur*/
+}
+
+.nav-link:hover {
+     color: rgb(0,113,121); /*couleurs passe dessus*/
+     font-weight: 700;
+}
+
+.stylelist {
+    list-style: none; /* enlever les puces */
+    margin-top: 10px; /*margin cases*/
+    margin-left: 10px;
+    padding: 0px;/* enlever les marges automatiques */
+   
+
+}
+ 
+.align {
+    display: table-cell; /* affichage en ligne */
+}
+
+.style {
+     display:block;   /*style list de case */
+     float:left;   
+     background-color:#fff;
+     color:black;
+     text-decoration:none;
+     text-align:center;
+     padding:3px;
+     border:1px solid;
+     /*pour avoir un effet "outset" avec IE :*/
+     border-color:#DCDCDC #696969 #696969 #DCDCDC;
+}
+/*MILIEU*/
+
+.bandeau {
+
+	background-color: white;
+
+}
+
+.bandeau_gauche{
+	float: left;
+	width: 50%;
+	background-color: white;
+
+}
+
+.bandeau_droite{
+	border-left: 1px solid silver;
+	margin-left: 50%;
+	width: 50%;
+	background-color: white;
+}
+.titre {
+	
+    width: 350px;
+    height: 50px;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    float: center;
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+ }
+
+.formulaire {
+    width: 400px; 
+    margin : auto;
+    background-color: white;
+}
+
+:invalid { 
+     background-color: #F0DDDD;
+    border-color: #e88;
+    -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .8);
+    -moz-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
+    -o-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
+    -ms-box-shadow: 0 0 5px rbba(255, 0, 0, .8);
+    box-shadow:0 0 5px rgba(255, 0, 0, .8);
+}
+ 
+:required {
+    border-color: #88a;
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+    -o-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+    -ms-box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+    box-shadow: 0 0 5px rgba(0, 0, 255, .5);
+        }
+.formulaire input {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    border:1px solid #ccc;
+    font-size:25px;
+    width:350px;
+    min-height:30px;
+    display:block;
+    margin-bottom:15px;
+    margin-top:5px;
+    outline: none;
+    margin: auto;
+    
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
+    -ms-border-radius:5px;
+    border-radius:5px;
+}
+ 
+.formulaire input[type=submit] {
+    background:none;
+    padding:10px;
+        cursor: pointer;
+}
+
+ .formulaire label{
+    cursor: pointer;
+}
+ 
+.casedroite{
+
+	margin: auto;
+	border:2px solid black;
+	width: 400px;
+	height: 200px;
+	align-content: center;
+
+}
+
+.casedroite input {
+
+	float: center;
+	background:none;
+    padding:10px;
+    cursor: pointer;
+    margin: auto;
+    display:block;
+    width: 320px;
+    height: 75px;
+    font-size:20px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -o-border-radius:5px;
+    -ms-border-radius:5px;
+    border-radius:5px;
+
+}
+
+
+
+/*FOOTER*/
+.footbar {
+	background: black;
+	color: white;
+}
+
+.footer-link {
+	cursor: pointer;
+}
+
+.footer-link:hover {
+     color: rgb(0,113,121); /*couleurs passe dessus*/
+     font-weight: 700;
+}
+
+.stylefooter {
+     display:block;/*style list de case */
+     float:left;   
+     background-color:#000;
+     color: white;
+     font-weight: 700;
+     text-decoration:none;
+     text-align:center;
+     padding:3px;
+     /*pour avoir un effet "outset" avec IE :*/
+}
+
+/*CAROUSSEL*/
+.slider {
+	min-width: 100%;
+	overflow: hidden;
+}
+
+.slides {
+	width: 900% ;
+	animation: glisse 30s infinite;
+}
+
+.slide {
+	float: left;
+}
+
+@keyframes glisse {
+	0% {
+		transform: translateX(0);
+	}
+	23% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(-1290px);
+	}
+	48% {
+		transform: translateX(-1290px);
+	}
+	50% {
+		transform: translateX(-2580px);
+	}
+	73% {
+		transform: translateX(-2580px);
+	}
+	75% {
+		transform: translateX(-1290px);
+	}
+	98% {
+		transform: translateX(-1290px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
