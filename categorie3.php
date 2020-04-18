@@ -17,6 +17,9 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     $changeenchere = "enchere.php";
     $changevendre = "vendre.php";
     $changecondition = "conditions.php";
+    $changeenchere = "enchere.php";
+
+    $changeachatbid = "achatbid.php";
 
 
     
@@ -37,9 +40,12 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		    $changecate2 = "categorie2.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changecate3 = "categorie3.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changevendre = "vendre.php?id_acheteur=".$_SESSION['id_acheteur']."";
+            $changevendre = "";
             $changecondition = "conditions.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changecompteC = "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
+             $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
+
+            $changeachatbid = "achatbid.php?id_acheteur=".$_SESSION['id_acheteur']."";
 	    }
     }
 
@@ -61,7 +67,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changevendre = "vendre.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changecondition = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecompteC = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changecompteC = "panier.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
+
+            $changeachatbid = "achatbid.php?id_vendeur=".$_SESSION['id_vendeur']."";
 	    }
     }
 
@@ -83,7 +92,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changevendre = "vendre.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changecondition = "conditions.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";;
+            $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
+             $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
+
+            $changeachatbid = "achatbid.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
 	    }
     }
 
@@ -186,7 +198,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 
 
-                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo $changecate3 ?>">Enchères</a></li>
+                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo $changeenchere ?>">Enchères</a></li>
 
                         </ul>
                     </div>
@@ -232,19 +244,19 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 				        			<td  ><h6 class="style" style="margin-top: 7px; ">Les mieux notés</h6></td>
 				        		</tr>
 				        		<tr>
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
 				        		</tr>
 				        		<tr>
 				        			<td><h6 class="style" style="margin-top: 10px;margin-left: 10px;">prix:</h6></td>
 				        		</tr>
 				        		<tr>
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
 				        		</tr>
 				        		<tr>
 				        			<td><h6 class="style" style="margin-top: 10px;margin-left: 10px;" >prix:</h6></td>
 				        		</tr>
 				        		<tr>
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="125" height="125" style="margin-top: 20px;cursor: pointer;"></a></td>
 				        		</tr>
 				        		<tr>
 				        			<td><h6 class="style" style="margin-top: 10px;margin-left: 10px;">prix:</h6></td>
@@ -256,42 +268,42 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 				        	<table style="">
 				        		<tr>
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 				        		</tr>
 				        		<tr>
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 
 				        		</tr>
 				        		<tr>
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 
-				        			<td><a href="achatbid.html"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
+				        			<td><a href="<?php echo $changeachatbid  ?>"><img src="images/panier.png" class="style" width="200" height="200" style="margin-top: 12px;margin-left: 100px;cursor: pointer;"> 
 				        			<h6 class="style" style="background:black; color:white;margin-top: -27px;margin-left: 100px;cursor: pointer;">prix:</h6>
 				        			</a></td>
 

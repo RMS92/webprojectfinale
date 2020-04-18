@@ -17,6 +17,9 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     $changeenchere = "enchere.php";
     $changevendre = "vendre.php";
     $changecondition = "conditions.php";
+    $changeenchere = "enchere.php";
+
+     $changefichepanier = "fichepanier.php";
 
 
     
@@ -37,9 +40,12 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		    $changecate2 = "categorie2.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changecate3 = "categorie3.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changevendre = "vendre.php?id_acheteur=".$_SESSION['id_acheteur']."";
+            $changevendre = "";
             $changecondition = "conditions.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changecompteC = "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
+            $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
+
+            $changefichepanier = "fichepanier.php?id_acheteur=".$_SESSION['id_acheteur']."";
 	    }
     }
 
@@ -61,7 +67,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changevendre = "vendre.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changecondition = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecompteC = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changecompteC = "panier.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
+
+            $changefichepanier = "fichepanier.php?id_vendeur=".$_SESSION['id_vendeur']."";
 	    }
     }
 
@@ -83,7 +92,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changevendre = "vendre.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changecondition = "conditions.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";;
+            $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
+            $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
+
+            $changefichepanier = "fichepanier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
 	    }
     }
 
@@ -186,7 +198,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 
 
-                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo $changecate3 ?>">Enchères</a></li>
+                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo  $changeenchere ?>">Enchères</a></li>
 
                         </ul>
                     </div>
@@ -210,7 +222,6 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			
 		</div>
 	</nav>
-
 
 
 	 <!--PARTIE DU MILIEU---------------------------------------------------------->
@@ -237,7 +248,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 					<table style=" margin-top: 20px;" >
 						<tr>
-							<td><a href="fichepanier.html"><input type="submit" name="" class="style" value="BUY NOW!"style="background:black; color:white;margin-left: 630px; cursor: pointer; -webkit-border-radius:5px; width: 150px; height: 50px;"></a></td>
+							<td><a href="<?php echo $changefichepanier  ?>"><input type="button" name="" class="style" value="BUY NOW!"style="background:black; color:white;margin-left: 630px; cursor: pointer; -webkit-border-radius:5px; width: 150px; height: 50px;"></a></td>
 						</tr>
 						<tr>
 							<td><input type="submit" name="" class="style" value="Remove"style="margin-top:20px;margin-left: 630px; cursor: pointer;width: 150px;height: 50px; -webkit-border-radius:5px; width: 150px;"></td>

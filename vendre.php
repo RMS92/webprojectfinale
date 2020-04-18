@@ -60,7 +60,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecate3 = "categorie3.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changevendre = "vendre.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecondition = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changecondition = "panier.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changecompteC = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
 	    }
     }

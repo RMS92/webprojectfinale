@@ -260,7 +260,7 @@ session_start();
 							<li class="footer-link" style="font-size: 15px; width:200px;">Carrière</li>
 							<li class="footer-link" style="font-size: 15px; width:200px;">Blog</li>
 							<li class="footer-link" style="font-size: 15px; width:200px;">Impressions</li>
-							<li class="footer-link" style="font-size:15px; width: 200px;"><a href="<?php echo $changecondition?>">Conditions d'utilisation</li></a>
+							<li class="footer-link" style="font-size:15px; width: 200px;"><a href="conditions.php">Conditions d'utilisation</li></a>
 							<li  class="footer-link" style="font-size: 15px; width: 200px ">Politique de confidentialité</li>
 						</ul>
 					</div>

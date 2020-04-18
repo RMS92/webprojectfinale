@@ -17,6 +17,9 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     $changeenchere = "enchere.php";
     $changevendre = "vendre.php";
     $changecondition = "conditions.php";
+    $changeenchere = "enchere.php";
+
+    $changepanier = "panier.php";
 
 
     
@@ -37,9 +40,14 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		    $changecate2 = "categorie2.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changecate3 = "categorie3.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changevendre = "vendre.php?id_acheteur=".$_SESSION['id_acheteur']."";
+            $changevendre = "";
             $changecondition = "conditions.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changecompteC = "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
+            $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
+
+            $changepanier =  "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
+
+
 	    }
     }
 
@@ -61,7 +69,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changevendre = "vendre.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changecondition = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecompteC = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changecompteC = "panier.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
+
+            $changepanier =  "";
 	    }
     }
 
@@ -83,7 +94,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changevendre = "vendre.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changecondition = "conditions.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";;
+            $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
+            $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
+
+             $changepanier =  "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
 	    }
     }
 
@@ -186,7 +200,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 
 
-                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo $changecate3 ?>">Enchères</a></li>
+                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo  $changeenchere ?>">Enchères</a></li>
 
                         </ul>
                     </div>
@@ -211,7 +225,6 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		</div>
 	</nav>
 
-
 	 <!--PARTIE DU MILIEU---------------------------------------------------------->
 	<div class="milieu">
 		<div class="container-fluid">
@@ -226,7 +239,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 				<div class="col-lg-6 col-md-6 col-md-6" style="height: 500px;">
 
 					<h4 class="style" style="margin-left: 150px; margin-top: 10px;">Titre et description</h4>
-					<a href="??"><h6 class="style" style="cursor:pointer;background: black; color: white; margin-top: 70px; margin-left: -150px;">BUY NOW</h6></a>
+					<a href="<?php echo $changepanier  ?>"><h6 class="style" style="cursor:pointer;background: black; color: white; margin-top: 70px; margin-left: -150px;">BUY NOW</h6></a>
 					<img class = "style" src="images/panier.png" alt="" width="300" height="300" style="margin-top: 65px;margin-left: 110px;"> 
  
 				     <h6 class="style" style="background: black; color: white; margin-top: 390px;margin-left:150px; margin-left: -250px">Prix:</h6>

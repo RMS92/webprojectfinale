@@ -91,7 +91,7 @@ if(isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0)
 					<img class="petitlogo"src="images/admin.png" width="25px">
 
 					<div>
-					    <a  class="nav-link style" href="<?php echo "vendre.php?id_acheteur=".$_SESSION['id_acheteur']."" ?>" style="margin-top: 12px; margin-left: 105px; width: 65px;">Sell</a>
+					    <a  class="nav-link style" href="" style="margin-top: 12px; margin-left: 105px; width: 65px;">Sell</a>
 				    </div>
 					
 				</div>
