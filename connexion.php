@@ -123,7 +123,7 @@ session_start();
 					<a href="connexionadmin.php"><img class="petitlogo"src="images/admin.png" width="25px"></a>
 
 					<div>
-					    <a  class="nav-link style" href="vendre.php" style="margin-top: 12px; margin-left: 105px; width: 65px;">Sell</a>
+					    <a  class="nav-link style" href="" style="margin-top: 12px; margin-left: 105px; width: 65px;">Sell</a>
 				    </div>
 					
 				</div>

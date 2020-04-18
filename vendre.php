@@ -15,7 +15,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     $changecate2 = "categorie2.php";
     $changecate3 = "categorie3.php";
     $changeenchere = "enchere.php";
-    $changevendre = "vendre.php";
+    $changevendre = "";
     $changecondition = "conditions.php";
 
 
@@ -60,8 +60,8 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecate3 = "categorie3.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changevendre = "vendre.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecondition = "panier.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecompteC = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changecondition = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
+            $changecompteC = "";
 	    }
     }
 
@@ -186,7 +186,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 
 
-                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo $changecate3 ?>">Enchères</a></li>
+                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo $changeenchere ?>">Enchères</a></li>
 
                         </ul>
                     </div>
