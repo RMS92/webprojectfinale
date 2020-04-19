@@ -99,6 +99,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
+    $getidacheteur = $_GET['id_acheteur'];
 
     if(isset($_POST['valider'])) 
      {
@@ -113,6 +114,76 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
      	if(!empty($_POST['pays']) AND !empty($_POST['prenom']) AND !empty($_POST['nom']) AND !empty($_POST['rue']) AND !empty($_POST['region']) AND !empty($_POST['code']) AND !empty($_POST['ville']) AND !empty($_POST['tel']))
      	{
+     		$paystaille = strlen($pays);
+     		if($paystaille <= 50)
+     		{
+     			$prenomtaille = strlen($prenom);
+     		    if($prenomtaille <= 50)
+     		    {
+
+     		    	$nomtaille = strlen($nom);
+     		        if($nomtaille <= 50)
+     		        {
+     		        	$ruetaille = strlen($rue);
+     		            if($ruetaille <= 100)
+     		            {
+     		            	$regiontaille = strlen($region);
+     		                if($regiontaille <= 50)
+     		                {
+     		                	$villetaille = strlen($ville);
+     		                    if($villetaille <= 50)
+     		                    {
+     		                    	$codetaille = strlen($code);
+     		                        if($codetaille <= 10)
+     		                        {
+     		                        	$teltaille = strlen($tel);
+     		                            if($teltaille <= 20)
+     		                            {
+     		                            	$insertshipping = $bdd->prepare("INSERT INTO infolivraison(telephone, nom, prenom, adresse, ville, code_postal, region, pays, id_acheteur) VALUES (?,?,?,?,?,?,?,?,?)");
+
+     						    		    $insertshipping->execute(array($tel, $nom, $prenom, $rue, $ville, $code, $region, $pays, $getidacheteur));
+     						    		    $erreur = "Vos informations de livraisons ont été sauvegardées";
+     		                            }
+     		                            else
+     		                            {
+     			                            $erreur = "Trop de caracteres";
+     		                            } 
+     		                        }
+     		                        else
+     		                        {
+     			                        $erreur = "Trop de caracteres";
+     		                        } 
+     		                    }
+     		                    else
+     		                    {
+     			                    $erreur = "Trop de caracteres";
+     		                    }
+     		                }
+     		                else
+     		                {
+     			                $erreur = "Trop de caracteres";
+     		                 }
+     		            }
+     		            else
+     		            {
+     			            $erreur = "Trop de caracteres";
+     		             }
+     		        }
+     		        else
+     		        {
+     			        $erreur = "Trop de caracteres";
+     		         }
+     		    }
+     		    else
+     		    {
+     			    $erreur = "Trop de caracteres";
+     		    }
+
+     		}
+     		else
+     		{
+     			$erreur = "Trop de caracteres";
+     		}
 
      	}
      	else
@@ -125,6 +196,11 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     	 $requser = $bdd->prepare("SELECT * FROM produit WHERE id_produit= ?");
 	     $requser->execute(array($getarticle));
 	     $articleinfos= $requser->fetch();
+
+
+	     $reqlivraison = $bdd->prepare("SELECT * FROM infolivraison WHERE id_acheteur = ?");
+	     $reqlivraison->execute(array($getidacheteur));
+	     $infos = $reqlivraison->fetch();
 
 
 ?>
@@ -279,7 +355,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
                 <table>
 				     <tr>
 				     	<td><h6 class="style"  style="background: black; color: white; margin-top: 5px;margin-left: 138px;" >Prix total:  $</h6></td>
-				     	<td><input type="text" name="" style="width: 70px;cursor: pointer; -webkit-border-radius:5px;" value="<?php echo $articleinfos['prix'];?>"></td>
+				     	<td><input type="button" name="" style="width: 70px;cursor: pointer; -webkit-border-radius:5px;" value="<?php echo $articleinfos['prix'];?>"></td>
 				     </tr>
 				</table>
 				     
@@ -296,25 +372,33 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 					<form method="POST">
 						<table style="margin-top: 90px; margin-left: 100px;">
 							<tr>
-								<td><input type="text" name="pays" placeholder="Country" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+								<td><input type="text" name="pays" placeholder="Country" style="cursor: pointer; -webkit-border-radius:5px;" value="<?php echo $infos['pays']  ?>"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="prenom" placeholder="First name" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px;"></td>
-								<td><input type="text" name="nom" placeholder="Last name" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"></td>
+								<td><input type="text" name="prenom" placeholder="First name" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px;" value="<?php echo $infos['prenom']  ?>"></td>
+
+								<td><input type="text" name="nom" placeholder="Last name" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px;" value="<?php echo $infos['nom']  ?>"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="rue" placeholder="Street adress" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"></td>
+								<td><input type="text" name="rue" placeholder="Street adress" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"
+									value="<?php echo $infos['adresse']  ?>"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="region" placeholder="Region" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"></td>
+								<td><input type="text" name="region" placeholder="Region" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"
+									value="<?php echo $infos['region']  ?>"></td>
 							</tr>
 							
 							<tr>
-								<td><input type="text" name="ville" placeholder="Ville" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"></td>
-								<td><input type="text" name="code" placeholder="Postal code" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px"></td>
+								<td><input type="text" name="ville" placeholder="Ville" style="cursor: pointer; -webkit-border-radius:5px; margin-top: 15px"
+									value="<?php echo $infos['ville']  ?>"></td>
+
+								<td><input type="text" name="code" placeholder="Postal code" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px"
+									value="<?php echo $infos['code_postal']  ?>"></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="tel" placeholder="Tel number" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px"></td>
+								<td><input type="text" name="tel" placeholder="Tel number" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px"
+									value="<?php echo $infos['telephone']  ?>"></td>
+
 								<td><input type="submit" name="valider" value="valider" style="cursor: pointer; -webkit-border-radius:5px;margin-top: 15px"></td>
 							</tr>
 						</table>

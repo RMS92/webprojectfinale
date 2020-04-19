@@ -10,6 +10,11 @@ if(isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0)
 	$requser->execute(array($getid));
 	$userinfosA = $requser->fetch();
 
+	$reqlivraison = $bdd->prepare("SELECT * FROM infolivraison WHERE id_acheteur = ?");
+	$reqlivraison->execute(array($getid));
+	$infos = $reqlivraison->fetch();
+
+
 	if(isset($_SESSION['id_acheteur']) AND $userinfosA['id_acheteur'] == $_SESSION['id_acheteur'])
 	{
 		$change = "compteacheteur.php";
@@ -202,23 +207,23 @@ if(isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0)
 							<div class="formulaire" style="margin-top: 50px; margin-bottom: 25px">
 
 							  <form oninput="total.value = (nights.valueAsNumber * 99) + ((guests.valueAsNumber - 1) * 10)">
-							  <input type="text" id="pays" name="pays" placeholder="Pays vendeur" required>
+							  <input type="text" id="pays" name="pays" placeholder="Pays vendeur" value="<?php echo $infos['pays']  ?>">
 						 		<br>
-						      <input type="text" id="prenom" name="prenom" placeholder="Prenom vendeur" required>
+						      <input type="text" id="prenom" name="prenom" placeholder="Prenom vendeur" value="<?php echo $infos['prenom']  ?>">
 						 		<br>
-						 	  <input type="text" id="nom" name="nom" placeholder="Nom vendeur" required>
+						 	  <input type="text" id="nom" name="nom" placeholder="Nom vendeur" value="<?php echo $infos['nom']  ?>">
 						 		<br>
-						      <input type="text" id="adresse" name="adresse"placeholder="adresse vendeur" required>
+						      <input type="text" id="adresse" name="adresse"placeholder="adresse vendeur" value="<?php echo $infos['adresse']  ?>">
 						 		<br>
 						      
-						      <input type="text" id="region" name="region" placeholder="Région vendeur" required>
+						      <input type="text" id="region" name="region" placeholder="Région vendeur" value="<?php echo $infos['region']  ?>">
 						        <br> 
-						      <input type="text" id="ville" name="ville" placeholder="Ville vendeur" required>
+						      <input type="text" id="ville" name="ville" placeholder="Ville vendeur" value="<?php echo $infos['ville']  ?>">
 						 		<br>
-						 	  <input type="text" id="code_postal" name="code_postale" placeholder="code postal vendeur" required>
+						 	  <input type="text" id="code_postal" name="code_postale" placeholder="code postal vendeur" value="<?php echo $infos['code_postal']  ?>">
 						 		<br>	
 						      
-						      <input type="text" id="telephone" name="telephone" placeholder="Telephone vendeur" required>
+						      <input type="text" id="telephone" name="telephone" placeholder="Telephone vendeur" value="<?php echo $infos['telephone']  ?>">
 						      <br>
 
 						      <input type="submit" value="Update my shipping" style="background-color: black; color: white;margin-top: 32px;" /> 
