@@ -91,7 +91,8 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
-
+    $userinfosA = $bdd->query("SELECT * FROM produit WHERE id_produit IN (SELECT id_produit FROM enchere)"); 
+    $userinfosE = $bdd->query("SELECT * FROM enchere WHERE id_produit IN (SELECT id_produit FROM produit)"); 
 ?>
 
 
@@ -224,84 +225,40 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 				</div>
 			</div>
 		</div>	
-		<div class="container-fluid" style="padding-bottom: 5px;margin-left: 100px;">
+		<div class="container-fluid" style="padding-bottom: 5px;margin-left: 50px;">
 			<div class="row">
-				<div class="col-md-3" style="margin-left: 30px;margin-bottom: 50px;">
-						<div class="img-thumbnail">
-							<a href="images/panier.png" target="_blank"> 
-								<center><img src="images/panier.png" alt="fruit1" width="250" height="250" style="border: 1px solid silver;"></center>
-							</a>
-								<div class="caption" > 
-									<p style=" background:black; color:white;float: right; font-size: 20px;border:1px solid silver;margin-top: 0px;margin-right: 162px;margin-left: -30px;"><strong> Prix actuel </strong></p>
-									<br><br>
-									<p style="text-align: center;font-size: 20px;"> Titre Produit </p>
-									<p style="text-align: center;font-size: 13px;"> Description </p>
-									<br>
-									<p style="text-align: center;font-size: 18px;margin-left: 10px;"> Date DébutEnchère, Date heure </p>
-									<p style="text-align: center;font-size: 18px;margin-left: 10px;"> Date FinEnchère, Date heure </p>
-									<form oninput="total.value = (nights.valueAsNumber * 99) + ((guests.valueAsNumber - 1) * 10)" style="text-align: center;">
-										<label style="font-size: 18px;">Surenchérir : </label>
-										<input type="text" id="surenchere" name="surenchere" placeholder="Insérez enchère" style="width: 150px" required>
-										<br>
-										<input type="submit" value="Valider" style="background-color: black; color: white;margin-top:20px;padding:10px;
-        								cursor: pointer;" />
-									</form>
-								</div>
-						</div>	
-						</div> 
+				 <div class="col-lg-11 col-md-11 col-sm-12" style="border: 1px solid black;margin-left: 10px; margin-top: 10px;margin-bottom: 50px;">
 
-				<div class="col-md-3" style="margin-left: 30px;margin-bottom: 50px;">
-						<div class="img-thumbnail">
-							<a href="images/panier.png" target="_blank"> 
-								<center><img src="images/panier.png" alt="fruit1" width="250" height="250" style="border: 1px solid silver;"></center>
-							</a>
-								<div class="caption" > 
-									<p style=" background:black; color:white;float: right; font-size: 20px;border:1px solid silver;margin-top: 0px;margin-right: 162px;margin-left: -30px;"><strong> Prix actuel </strong></p>
-									<br><br>
-									<p style="text-align: center;font-size: 20px;"> Titre Produit </p>
-									<p style="text-align: center;font-size: 13px;"> Description </p>
-									<br>
-									<p style="text-align: center;font-size: 18px;margin-left: 10px;"> Date DébutEnchère, Date heure </p>
-									<p style="text-align: center;font-size: 18px;margin-left: 10px;"> Date FinEnchère, Date heure </p>
-									<form oninput="total.value = (nights.valueAsNumber * 99) + ((guests.valueAsNumber - 1) * 10)" style="text-align: center;">
-										<label style="font-size: 18px;">Surenchérir : </label>
-										<input type="text" id="surenchere" name="surenchere" placeholder="Insérez enchère" style="width: 150px" required>
-										<br>
-										<input type="submit" value="Valider" style="background-color: black; color: white;margin-top:20px;padding:10px;
-        								cursor: pointer;" />
-									</form>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3" style="margin-left: 30px;margin-bottom: 50px;">
-						<div class="img-thumbnail">
-							<a href="images/panier.png" target="_blank"> 
-								<center><img src="images/panier.png" alt="fruit1" width="250" height="250" style="border: 1px solid silver;"></center>
-							</a>
-								<div class="caption" > 
-									<p style=" background:black; color:white;float: right; font-size: 20px;border:1px solid silver;margin-top: 0px;margin-right: 162px;margin-left: -30px;"><strong> Prix actuel </strong></p>
-									<br><br>
-									<p style="text-align: center;font-size: 20px;"> Titre Produit </p>
-									<p style="text-align: center;font-size: 13px;"> Description </p>
-									<br>
-									<p style="text-align: center;font-size: 18px;margin-left: 10px;"> Date DébutEnchère, Date heure </p>
-									<p style="text-align: center;font-size: 18px;margin-left: 10px;"> Date FinEnchère, Date heure </p>
-									<form oninput="total.value = (nights.valueAsNumber * 99) + ((guests.valueAsNumber - 1) * 10)" style="text-align: center;">
-										<label style="font-size: 18px;">Surenchérir : </label>
-										<input type="text" id="surenchere" name="surenchere" placeholder="Insérez enchère" style="width: 150px" required>
-										<br>
-										<input type="submit" value="Valider" style="background-color: black; color: white;margin-top:20px;padding:10px;
-        								cursor: pointer;" />
-									</form>
-								</div>
+				        	<ul style="list-style: none;text-align: center; margin-left: 10px;">
+							<?php for ($j=0; $j < $infoE = $userinfosE->fetch(); $j++) {  
+
 								
+								for ($i=0; $i < $info = $userinfosA->fetch(); $i++) { 
+								  	  
+								# code...
+							 ?>
 
-						</div>	
-						
-						</div>		
+							<li class = "style" style="margin-top: 25px; margin-left: 10px; margin-bottom : 20px;width: 250px;"> Titre :<?= $info['nom'] ?> <br>Categorie : <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br> Détails : <?= $info['description'] ?><br><br> Prix de l'enchère: <br><strong>
+							
+							<?= $infoE['prix_surencheri'] ?>$ </strong><br>Date de fin: <?= $infoE['date_fin'] ?> <br> Heure de fin : <?= $infoE['heure_fin'] ?><br><br> Surenchérir : 
+							<form action="ajout_item.php" method="post">
+							<input type="number"  name="Prix" placeholder="Insérer surenchère" /><br><br>
+							Avez-vous lu nos<a href="conditions.php"> conditions d'utilisation</a> ? 
+
+							<input type="submit" value="Valider Surenchère" style="margin-bottom: 15px" />
+							</form>
+							</li>
+
+							<?php
+							  }
+						     }
+							?>
+						</ul>
+				
+							
 
 							
-						</div> 
+						 
 						
 					</div>
 			</div>
