@@ -279,7 +279,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     <!--PARTIE DU MILIEU---------------------------------------------------------->
 	<div class="milieu">
 		
-		<div class="casepaiement" style="height: 500px;">
+		<div class="casepaiement" style="height: 560px;">
 					<div class="titre" >
 								<h2 style="text-align: center;">Paiement</h2>
 					</div>
@@ -345,7 +345,16 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 					</div>
 					<table style=" text-align: center;margin-left:0px; margin: auto;" >
 					<tr>
+						<?php 
+						ini_set('display_errors', 'off');
+						if($erreur == "Votre carte a bien été ajoutée !" )
+						{ 
+						?>
 						<td > <a class = "style"style="margin-left: 0px;margin-top: 15px;margin-bottom: 50px; background-color: green;color: white; font-size: 25px; width: 150px; height: 80px;" href="paiement.php?supprime=<?=$articleinfos['id_produit']?>">Valider Commande</a></td>
+						<?php
+						}
+						?>
+
 					</tr>
 					</table>	
 		</div>	
