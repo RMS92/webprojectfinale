@@ -99,7 +99,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
-    $userinfosA = $bdd->query("SELECT * FROM produit WHERE categorie = 'accesoires vip'"); 
+    $userinfosA = $bdd->query("SELECT * FROM produit WHERE categorie = 'accesoires vip' AND statut = 'non vendu'");   
 
 
 ?>
@@ -231,7 +231,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12" style="height:45px; color: white; background-color: black">
-					<h3> Ferraille ou Trésor</h3>
+					<h3> Accessoires VIP</h3>
 				</div>
 
 			</div>
@@ -250,7 +250,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 								# code...
 							  $info = $userinfosA->fetch()?>
 
-							<li class = "style" style="margin-top: 25px; margin-left: -25px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="125" height="125"><?= $info['prix'] ?>$ <a 
+							<li class = "style" style="margin-top: 25px; margin-left: -18px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="125" height="125"><br><?= $info['prix'] ?>$ <br><a 
 								<?php if(isset($_GET['id_acheteur']))
 								{?>
 								href="<?php echo "achatbid.php?id_acheteur=".$_GET['id_acheteur']."&item=".$info['id_produit']."" ?>" 
@@ -263,20 +263,20 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
                                 <?php
 							    }?> 
 
-							    <?php if(isset($_GET['pseudo admin']))
+							    <?php if(isset($_GET['pseudo_admin']))
 								{?>
-								href="<?php echo "achatbid.php?id_pseudo admin=".$_GET['id_pseudo admin']."&item=".$info['id_produit']."" ?>" 
+								href="<?php echo "achatbid.php?pseudo_admin=".$_GET['pseudo_admin']."&item=".$info['id_produit']."" ?>" 
                                 <?php
 							    }?> 
 
-							    <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo']))
+							    <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
 								{?>
 								href="<?php echo "achatbid.php?item=".$info['id_produit']."" ?>"> 
                                 <?php
 							    }?> 
 							    
 							    
-								<br>acheter</a> </li>
+								<br>voir l'article</a> </li>
 							<?php
 						     }
 							?>
@@ -292,7 +292,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 								# code...
 							 ?>
 
-							<li class = "style" style="margin-top: 25px; margin-left: 15px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br><?= $info['prix'] ?>$ 
+							<li class = "style" style="margin-top: 25px; margin-left: 15px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br><?= $info['prix'] ?>$ <br>
 								<a <?php if(isset($_GET['id_acheteur']))
 								{?>
 								href="<?php echo "achatbid.php?id_acheteur=".$_GET['id_acheteur']."&item=".$info['id_produit']."" ?>" 
@@ -305,17 +305,17 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
                                 <?php
 							    }?> 
 
-							    <?php if(isset($_GET['pseudo admin']))
+							    <?php if(isset($_GET['pseudo_admin']))
 								{?>
-								href="<?php echo "achatbid.php?id_pseudo admin=".$_GET['id_pseudo admin']."&item=".$info['id_produit']."" ?>" 
+								href="<?php echo "achatbid.php?pseudo_admin=".$_GET['pseudo_admin']."&item=".$info['id_produit']."" ?>" 
                                 <?php
 							    }?> 
 
-							    <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo']))
+							    <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
 								{?>
 								href="<?php echo "achatbid.php?item=".$info['id_produit']."" ?>"> 
                                 <?php
-							    }?>  <br> acheter</a> </li>
+							    }?>  <br> voir l'article</a> </li>
 
 							<?php
 							  

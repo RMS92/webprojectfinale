@@ -180,7 +180,7 @@ if(isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0)
 						      	     
 
 						          <a href="sedeconnecter.php">
-				      			    <input type="button" value=" Se Déconnecter" style="background-color: red; color: white; margin-top: 50px;" >
+				      			    <input type="button" value=" Se Déconnecter" name="deco"style="background-color: red; color: white; margin-top: 50px;" >
 
 				      		      </a>
 				      		  <?php

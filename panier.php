@@ -99,10 +99,16 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
-         $getarticle = $_GET['item'];
-    	 $requser = $bdd->prepare("SELECT * FROM produit WHERE id_produit= ?");
-	     $requser->execute(array($getarticle));
-	     $articleinfos= $requser->fetch();
+    if(isset($_GET['supprime']) AND !empty($_GET['supprime']))
+   {
+   	    $supprime = (int) $_GET['supprime'];
+   	    $req = $bdd->prepare("DELETE FROM panierventre WHERE id_produit = ?");
+   	    $req->execute(array($supprime));
+
+   	     header("Location: panier.php?id_acheteur=".$_SESSION['id_acheteur']);
+   }
+
+    $userinfosA = $bdd->query("SELECT * FROM panierventre"); 
     
 
 
@@ -243,23 +249,48 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			<div class="row" style="margin-top: 15px; margin-bottom: 15px;">
 				<div class="col-lg-12 col-md-12 col-md-12">
 
-					<img class = "style" src="<?php echo $articleinfos['photo'];?>" alt="" width="300" height="300" style="margin-top: 20px;margin-left: 50px;">
+                <?php if(isset($_GET['id_acheteur']))
+				 {?>
+					<ul style="list-style: none;">
+							<?php for ($i=0; $i < $info = $userinfosA->fetch() ; $i++) { 
+								# code...
+							  ?>
 
-					<table style=" margin-top: 40px;" >
-						<tr>
-							<td><p class = "style" style="margin-left: 80px"><?php echo $articleinfos['nom'];?> <br> description : <?php echo $articleinfos['description'];?></p></td>
-							<td><p class = "style" style="margin-left: 40px"><?php echo $articleinfos['prix'];?> $ + livraison : gratuite</p></td>
-						</tr>
-					</table>
+							<li  style="margin-top: 25px; margin-left: -25px;">
 
-					<table style=" margin-top: 20px;" >
-						<tr>
-							<td><a href="<?php echo "fichepanier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$_GET['item']."" ?>"><input type="button" name="" class="style" value="BUY NOW!"style="background:black; color:white;margin-left: 630px; cursor: pointer; -webkit-border-radius:5px; width: 150px; height: 50px;"></a></td>
-						</tr>
-						<tr>
-							<td><input type="submit" name="" class="style" value="Remove"style="margin-top:20px;margin-left: 630px; cursor: pointer;width: 150px;height: 50px; -webkit-border-radius:5px; width: 150px;"></td>
-						</tr>
-					</table>
+								<table>
+									<tr>
+										<td> <img src="<?php echo $info['photo']?>" class = "style" width="300" height="300"></td>
+								         <td class = "style" style="margin-left: 30px;font-size: 20px;margin-top: 125px;"><?= $info['nom'] ?></td>
+								         <td class = "style" style="margin-left: 30px; font-size: 20px;margin-top: 125px;"><?= $info['description'] ?></td>
+								         <td class = "style"style="margin-left: 30px;font-size: 20px;margin-top: 125px;"><?= $info['prix']?>$</td>
+
+									</tr>
+
+									<tr>
+										
+										<td class = "style"style="margin-left: 30px;font-size: 25px;margin-top: 35px"><a href="<?php echo "fichepanier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$info['id_produit']."" ?>" class="style"> BUY NOW
+										</a></td>
+
+										<td class = "style"style="margin-left: 15px;font-size: 25px;margin-top: 35px"><a href="panier.php?supprime=<?= $info['id_produit']?>">Supprimer</a> </td>
+										
+									</tr>					
+								</table> 
+								                              
+							    
+							 </li>
+							<?php
+						     }
+							?>
+					        </ul>
+  
+					    <?php
+					     }
+					     else
+					      {?>
+					      	<h5>Panier vide veuillez-vous <a href="connexion.php">connectez</a></h5>
+                           <?php
+					      }?>
 					
 					
 				</div>

@@ -45,7 +45,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecompteC = "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
 
-            $changepanier =  "panier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$_GET['item']."";
+            $changepanier =  "panier.php?id_acheteur=".$_SESSION['id_acheteur']."&item=".$_GET['item']."";
 
 
 	    }
@@ -97,7 +97,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
 
-             $changepanier =  "panier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$_GET['item']."";
+            $changepanier =  "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."&item=".$_GET['item']."";
 	    }
     }
 
@@ -106,6 +106,19 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     	 $requser = $bdd->prepare("SELECT * FROM produit WHERE id_produit= ?");
 	     $requser->execute(array($getarticle));
 	     $articleinfos= $requser->fetch();
+
+	     if(isset($_POST['buy']))
+         {
+         	$insertproduit = $bdd->prepare("INSERT INTO panierventre(id_produit, nom, prix, categorie, description, photo, video, id_acheteur) VALUES (?,?,?,?,?,?,?,?)");
+
+     		$insertproduit->execute(array($articleinfos['id_produit'], $articleinfos['nom'], $articleinfos['prix'],$articleinfos['categorie'], $articleinfos['description'], $articleinfos['photo'], $articleinfos['video'], $_GET['id_acheteur']));
+
+     		$erreur = "Votre article a bien ajouté au panier ! ";
+         }
+         else
+   	     {
+   	    	
+   	     }
     
 
 
@@ -244,34 +257,58 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			</div>
 
 			<div class="row" style="margin-top: 15px; margin-bottom: 15px;">
-				<div class="col-lg-6 col-md-6 col-md-6" style="height: 500px;">
+				<div class="col-lg-6 col-md-6 col-md-6" style="">
 
-					<h4 class="style" style="margin-left: 150px; margin-top: 10px;"><?php echo $articleinfos['nom'];?></h4>
-					<a 
-					  <?php if(isset($_GET['id_acheteur']) OR isset($_GET['pseudo_admin']))
+                <table>
+                	<tr>
+
+					  <td><h4 class="style" style="margin-left: 150px; margin-top: 10px;"><?php echo $articleinfos['nom'];?></h4><td>
+				    </tr>
+				    <tr>
+					<td>
+					  <?php if(isset($_GET['id_acheteur']))
 					  {?>
-					     href="<?php echo $changepanier ?>">
+					     
+					     <form method="POST">
+
+					     <input type="submit" class="style" name ="buy" value = "BUY NOW" style="cursor:pointer;background: black; color: white; margin-top: 20px; margin-left: 190px;">
+
+					     </form>
+					     <?php
+				           if(isset($erreur)){
+					         echo '<p style="cursor:pointer;background: white; color: red; margin-top: 60px; margin-left: 100px;">'. $erreur."</p>";
+				               }
+				           ?></td>
+
+					  <?php
+					  }
+					  else if(isset($_GET['id_vendeur']) OR isset($_GET['pseudo_admin']))
+					  {?>
+					  	 <h6 class="style" style="cursor:pointer;background: white; color: red; margin-top: 20px; margin-left: 155px;">Achats impossible</h6></td>
 					  <?php
 					  }
 					  else
 					  {?>
 					  	
+					  	<h6 class="style" style="cursor:pointer;background: white; color: red; margin-top: 20px; margin-left: 100px;">Veuillez vous-<a href="connexion.php" style="color : red">connectez</a> a votre compte</h6></td>
 					  	<?php
 					  }?>
 
+				
 
+				
 
-
-
-					<h6 class="style" style="cursor:pointer;background: black; color: white; margin-top: 70px; margin-left: -150px;">BUY NOW</h6></a>
-
-
-
-
-					<img class = "style" src="<?php echo $articleinfos['photo'];?>" alt="" width="300" height="300" style="margin-top: 65px;margin-left: 110px;"> 
+                    <tr>
+                      
+					<td><img class = "style" src="<?php echo $articleinfos['photo'];?>" alt="" width="300" height="300" style="margin-top: 20px;margin-left: 100px;"> </td>
+					</tr>
+					<tr>
  
-				     <h6 class="style" style="background: black; color: white; margin-top: 390px;margin-left:150px; margin-left: -250px">Prix: <?php echo $articleinfos['prix'];?></h6>
-					<h6 class="style" style="background: black; color: white;margin-top: 390px; margin-left: -125px;">Best bid(buyer):</h6>
+				     <td><h6 class="style" style="background: black; color: white; margin-top: 20px;margin-left:135px;">Prix: <?php echo $articleinfos['prix'];?></h6>
+					<h6 class="style" style="background: black; color: white;margin-top: 20px; margin-left: 15px;">Best bid(buyer):</h6></td>
+					</tr>
+
+					</table>
 					
 
 					

@@ -284,7 +284,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 				</table>
 				     
 
-					<a href="<?php echo "fichepanier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$_GET['item']."" ?>"><input type="button" name=""  value="paiement" class="style" style="background: black; color: white; margin-top: 0px; margin-left: 185px; width: 150px; cursor: pointer; -webkit-border-radius:5px;"></a>
+					<a href="<?php echo "paiement.php?id_acheteur=".$_GET['id_acheteur']."&item=".$_GET['item']."" ?>"><input type="button" name=""  value="paiement" class="style" style="background: black; color: white; margin-top: 0px; margin-left: 185px; width: 150px; cursor: pointer; -webkit-border-radius:5px;"></a>
 					
 
 					

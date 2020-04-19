@@ -240,7 +240,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		</div>
 		<div class="container" style="background-color: white; margin-bottom: 50px; margin: auto; text-align: center;">
 			<p style="margin-top: 50px; margin-bottom: 50px">
-			<a href="main.html">
+			<a href="<?php echo $changemain  ?>">
 			<input type="button" name="retourmenu" value="Cliquez-ici pour retourner au menu d'accueil" style="height: 100px; width: 500px; background-color: black; margin: auto; color: white; font-size: 20px;">
     		</a>	
     		</p>

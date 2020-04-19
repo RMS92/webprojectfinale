@@ -91,6 +91,24 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
+         $getarticle = $_GET['item'];
+    	 $requser = $bdd->prepare("SELECT * FROM produit WHERE id_produit= ?");
+	     $requser->execute(array($getarticle));
+	     $articleinfos= $requser->fetch();
+
+	     if(isset($_GET['supprime']) AND !empty($_GET['supprime']))
+        {
+   	        $supprime = (int) $_GET['supprime'];
+   	        $req = $bdd->prepare("DELETE FROM panierventre WHERE id_produit = ? ");
+   	        $req->execute(array($supprime));
+
+   	        $supprimevente = (int) $_GET['supprime'];
+   	        $reqvente = $bdd->prepare("UPDATE produit SET statut = 'vendu' WHERE id_produit = ? ");
+   	        $reqvente->execute(array($supprimevente));
+
+   	     header("Location: operation_valide.php?id_acheteur=".$_SESSION['id_acheteur']);
+        }
+
 
 ?>
 
@@ -226,10 +244,15 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 					<div class="formulaire" style="margin-top: 50px; margin-bottom: 25px">
 
 							  <form oninput="total.value = (nights.valueAsNumber * 99) + ((guests.valueAsNumber - 1) * 10)">
-							  <input type="text" id="cb" name="cb" placeholder="Numéro de la carte bancaire" required>
-							  <br>
-							  <label style="font-size: 25px;"> Expire fin :</label>
-							  <SELECT name="mois" size="1">
+							  	<table style=" text-align: center;margin-left:500px" >
+							  		<tr>
+							  			<td><input type="text" id="cb" name="cb" placeholder="Numéro carte bancaire" required></td>
+							  		</tr>
+							  		<tr>
+							  			<td><label style="font-size: 25px;"> Expire fin :</label></td>
+							  		</tr>
+							  		<tr>
+							  			<td>  <SELECT name="mois" size="1">
 								<OPTION>Janvier
 								<OPTION>Février
 								<OPTION>Mars
@@ -254,13 +277,19 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 								<OPTION>2027
 								<OPTION>2028
 								
-							   </SELECT>
-						 		<br>
-						      <label style="font-size: 25px;">Cryptogramme visuel :</label>
-						      <input type="text" id="cryptogramme" name="cryptogramme" placeholder="123" style="width: 50px;" required>
-						      
-						      
-						      <input type="submit" value="Valider Paiement" style="background-color: black; color: white;margin-top: 32px;" onclick="???" />
+							   </SELECT></td>
+							  		</tr>
+
+							  		<tr>
+							  			<td><label style="font-size: 25px;">Cryptogramme visuel :</label></td>
+							  			<td><input type="text" id="cryptogramme" name="cryptogramme" placeholder="123" style="width: 50px;" required></td>
+							  		</tr>
+							  		<tr>
+							  			<td > <a class = "style"style="margin-left: 60px;margin-top: 15px" href="paiement.php?supprime=<?=$articleinfos['id_produit']?>">Valider paiement</a></td>
+							  		</tr>
+							  		
+
+							  	</table>						     
 						      
 					</div>
 					
