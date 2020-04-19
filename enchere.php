@@ -91,8 +91,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
-    $userinfosA = $bdd->query("SELECT * FROM produit WHERE id_produit IN (SELECT id_produit FROM enchere)"); 
-    $userinfosE = $bdd->query("SELECT * FROM enchere WHERE id_produit IN (SELECT id_produit FROM produit)"); 
+    $userinfosA = $bdd->query("SELECT * FROM enchere INNER JOIN produit ON enchere.id_produit = produit.id_produit"); 
 ?>
 
 
@@ -229,18 +228,16 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			<div class="row">
 				 <div class="col-lg-11 col-md-11 col-sm-12" style="border: 1px solid black;margin-left: 10px; margin-top: 10px;margin-bottom: 50px;">
 
-				        	<ul style="list-style: none;text-align: center; margin-left: 10px;">
-							<?php for ($j=0; $j < $infoE = $userinfosE->fetch(); $j++) {  
-
-								
-								for ($i=0; $i < $info = $userinfosA->fetch(); $i++) { 
-								  	  
+				        	<ul style="list-style: none; margin-left: 10px;">
+							<?php for ($j=0; $j < $info = $userinfosA->fetch(); $j++) {  
+																							  	  
 								# code...
 							 ?>
 
-							<li class = "style" style="margin-top: 25px; margin-left: 10px; margin-bottom : 20px;width: 250px;"> Titre :<?= $info['nom'] ?> <br>Categorie : <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br> Détails : <?= $info['description'] ?><br><br> Prix de l'enchère: <br><strong>
+							<li class = "style" style="margin-top: 25px; margin-left: 15px; margin-bottom : 20px;width: 250px;"> Titre :<?= $info['nom'] ?> <br>Categorie : <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br> Détails : <?= $info['description'] ?><br><br> Prix de l'enchère: <br><strong>
 							
-							<?= $infoE['prix_surencheri'] ?>$ </strong><br>Date de fin: <?= $infoE['date_fin'] ?> <br> Heure de fin : <?= $infoE['heure_fin'] ?><br><br> Surenchérir : 
+							<?= $info['prix_surencheri'] ?>$ </strong><br>Date de fin: <?= $info['date_fin'] ?> <br> Heure de fin : <?= $info['heure_fin'] ?><br><br> Surenchérir : 
+
 							<form action="ajout_item.php" method="post">
 							<input type="number"  name="Prix" placeholder="Insérer surenchère" /><br><br>
 							Avez-vous lu nos<a href="conditions.php"> conditions d'utilisation</a> ? 
@@ -250,7 +247,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 							</li>
 
 							<?php
-							  }
+							  
 						     }
 							?>
 						</ul>
