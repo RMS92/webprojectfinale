@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 18 avr. 2020 à 20:10
+-- Généré le :  Dim 19 avr. 2020 à 20:21
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `achat_direct` (
   `id_produit` bigint(50) NOT NULL,
   PRIMARY KEY (`id_achat`),
   KEY `id_produit` (`id_produit`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `achat_direct`
@@ -57,7 +57,11 @@ INSERT INTO `achat_direct` (`id_achat`, `statut_vente`, `id_produit`) VALUES
 (32, 'non vendu', 45),
 (33, 'non vendu', 47),
 (34, 'non vendu', 49),
-(35, 'non vendu', 51);
+(35, 'non vendu', 51),
+(36, 'non vendu', 52),
+(37, 'non vendu', 55),
+(38, 'non vendu', 58),
+(39, 'non vendu', 60);
 
 -- --------------------------------------------------------
 
@@ -167,25 +171,30 @@ DROP TABLE IF EXISTS `offre`;
 CREATE TABLE IF NOT EXISTS `offre` (
   `id_offre` bigint(50) NOT NULL AUTO_INCREMENT,
   `statut_vente` varchar(20) NOT NULL,
+  `offre_acheteur` bigint(255) DEFAULT NULL,
   `id_produit` bigint(50) NOT NULL,
+  `id_vendeur` bigint(50) NOT NULL,
+  `id_acheteur` bigint(50) DEFAULT NULL,
   PRIMARY KEY (`id_offre`),
-  KEY `id_produit` (`id_produit`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  KEY `id_produit` (`id_produit`),
+  KEY `id_vendeur` (`id_vendeur`),
+  KEY `id_acheteur` (`id_acheteur`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `offre`
 --
 
-INSERT INTO `offre` (`id_offre`, `statut_vente`, `id_produit`) VALUES
-(5, 'non vendu', 27),
-(6, 'non vendu', 29),
-(7, 'non vendu', 33),
-(8, 'non vendu', 37),
-(9, 'non vendu', 39),
-(10, 'non vendu', 41),
-(11, 'non vendu', 43),
-(12, 'non vendu', 46),
-(13, 'non vendu', 50);
+INSERT INTO `offre` (`id_offre`, `statut_vente`, `offre_acheteur`, `id_produit`, `id_vendeur`, `id_acheteur`) VALUES
+(15, 'non vendu', NULL, 54, 10, NULL),
+(16, 'non vendu', NULL, 55, 10, NULL),
+(17, 'non vendu', NULL, 56, 10, NULL),
+(18, 'non vendu', NULL, 57, 8, NULL),
+(19, 'non vendu', NULL, 58, 8, NULL),
+(20, 'non vendu', NULL, 59, 8, NULL),
+(21, 'non vendu', NULL, 60, 9, NULL),
+(22, 'non vendu', NULL, 61, 9, NULL),
+(23, 'non vendu', NULL, 62, 9, NULL);
 
 -- --------------------------------------------------------
 
@@ -206,6 +215,25 @@ CREATE TABLE IF NOT EXISTS `panier` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `panierventre`
+--
+
+DROP TABLE IF EXISTS `panierventre`;
+CREATE TABLE IF NOT EXISTS `panierventre` (
+  `id_produit` bigint(50) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) NOT NULL,
+  `prix` double NOT NULL,
+  `categorie` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `photo` varchar(255) NOT NULL,
+  `video` varchar(255) NOT NULL,
+  `id_acheteur` bigint(50) NOT NULL,
+  PRIMARY KEY (`id_produit`)
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `produit`
 --
 
@@ -218,41 +246,52 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `description` varchar(255) NOT NULL,
   `photo` varchar(255) NOT NULL,
   `video` varchar(255) NOT NULL,
+  `statut` varchar(255) NOT NULL DEFAULT 'non vendu',
   `id_vendeur` bigint(50) NOT NULL,
   PRIMARY KEY (`id_produit`),
   KEY `id_vendeur` (`id_vendeur`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `produit`
 --
 
-INSERT INTO `produit` (`id_produit`, `nom`, `prix`, `categorie`, `description`, `photo`, `video`, `id_vendeur`) VALUES
-(26, 'Double bague', 120, 'feraille ou tresor', 'magnifiques bagues en deux exemplaires', 'double_bague.png', '', 6),
-(27, 'Alliances', 80, 'feraille ou tresor', 'Des alliances pour un mariage par exemple', 'alliance.png', '', 6),
-(28, 'bijoux royales', 250, 'feraille ou tresor', 'authentique bijoux de la couronne du Danemark', 'Bijoux_royales.jpg', '', 6),
-(29, 'Chevaliere rose', 500, 'feraille ou tresor', 'Chevaliere ayant appartenu au roi de Finlande', 'chevaliere_rose.png', '', 6),
-(31, 'Kabale', 20, 'feraille ou tresor', 'Porte chance je vous assure', 'roux_Kabale.png', '', 8),
-(32, 'collier coeur ', 50, 'feraille ou tresor', 'Parfait pour la saint Valentin', 'collier_coeur.png', '', 8),
-(33, 'Tresor africain ', 300, 'feraille ou tresor', 'Rarissime et tendance, vous ne serez insatisfait\r\n', 'tresor_africain.png', '', 8),
-(34, 'Perles', 80, 'feraille ou tresor', 'Perles du Guatemala', 'perles.png', '', 8),
-(35, 'Joconde', 1500, 'bon pour le muse', 'la joconde de Leonard de Vinci', 'Joconde.png', '', 9),
-(36, 'peinture impressioniste ', 600, 'bon pour le muse', 'peinture du 19 eme siecle ', 'peinture_impressioniste.png', '', 9),
-(37, 'Art moderne', 550, 'bon pour le muse', 'Peinture de Mr Kobayashi', 'art_moderne.png', '', 9),
-(38, 'La Cene vide ', 350, 'bon pour le muse', 'Le cauchemar des acteurs ', 'cÃ¨ne_vide.png', '', 9),
-(39, 'Art comtemporain', 190, 'bon pour le muse', 'Peinture d un etudiant en art', 'art_comtemporain.png', '', 6),
-(40, 'La folie ', 230, 'bon pour le muse', 'Tableau des plus impressionnants', 'la_folie.png', '', 6),
-(41, 'Les joueurs de cartes', 560, 'feraille ou tresor', 'oeuvre historique sur les ravages de la guerre', 'cartes.png', '', 6),
-(42, 'Playmobil', 1000, 'bon pour le muse', 'Beau et original, que demander de plus ', 'playmobil.png', '', 6),
-(43, 'Veste Gucci', 560, 'accesoires vip', 'Veste en poil de belette', 'veste_gucci.jpg', '', 10),
-(44, 'T-shirt Gucci', 140, 'accesoires vip', 'Authentique t-shirt', 'tshirt_gucci.jpg', '', 10),
-(45, 'tshirt Versace', 440, 'accesoires vip', 't-shirt luxueux pour personnes luxueuses', 'tshirt_versace.jpg', '', 10),
-(46, 'Peignoir Versace', 690, 'accesoires vip', 'Versace pour vous servir, Versace pour vous seduire', 'peignoire_versace.jpg', '', 10),
-(47, 'Rolex ', 1200, 'accesoires vip', 'Montre ayant appartenu au fameux  Roger Federer', 'rolex.jpg', '', 8),
-(48, 'Montre winner', 280, 'accesoires vip', 'La montre pour les winners ', 'montre_winner.jpg', '', 8),
-(49, 'Casquette de luxe ', 230, 'accesoires vip', 'Casquette avec un dessin de tigre ', 'casquette_luxe.jpg', '', 8),
-(50, 'Bonnet UGG', 20, 'accesoires vip', 'Bonnet parfait pour la saison hivernale', 'bonnet_ugg.jpg', '', 8),
-(51, 'Visiere Louis Vuitton', 540, 'accesoires vip', 'Le soleil ne sera plus votre ennemi', 'visiere_lv.jpg', '', 8);
+INSERT INTO `produit` (`id_produit`, `nom`, `prix`, `categorie`, `description`, `photo`, `video`, `statut`, `id_vendeur`) VALUES
+(26, 'Double bague', 120, 'feraille ou tresor', 'magnifiques bagues en deux exemplaires', 'double_bague.png', '', 'non vendu', 6),
+(27, 'Alliances', 80, 'feraille ou tresor', 'Des alliances pour un mariage par exemple', 'alliance.png', '', 'non vendu', 6),
+(28, 'bijoux royales', 250, 'feraille ou tresor', 'authentique bijoux de la couronne du Danemark', 'Bijoux_royales.jpg', '', 'non vendu', 6),
+(29, 'Chevaliere rose', 500, 'feraille ou tresor', 'Chevaliere ayant appartenu au roi de Finlande', 'chevaliere_rose.png', '', 'non vendu', 6),
+(31, 'Kabale', 20, 'feraille ou tresor', 'Porte chance je vous assure', 'roux_Kabale.png', '', 'non vendu', 8),
+(32, 'collier coeur ', 50, 'feraille ou tresor', 'Parfait pour la saint Valentin', 'collier_coeur.png', '', 'non vendu', 8),
+(33, 'Tresor africain ', 300, 'feraille ou tresor', 'Rarissime et tendance, vous ne serez insatisfait\r\n', 'tresor_africain.png', '', 'non vendu', 8),
+(34, 'Perles', 80, 'feraille ou tresor', 'Perles du Guatemala', 'perles.png', '', 'non vendu', 8),
+(35, 'Joconde', 1500, 'bon pour le muse', 'la joconde de Leonard de Vinci', 'Joconde.png', '', 'non vendu', 9),
+(36, 'peinture impressioniste ', 600, 'bon pour le muse', 'peinture du 19 eme siecle ', 'peinture_impressioniste.png', '', 'non vendu', 9),
+(37, 'Art moderne', 550, 'bon pour le muse', 'Peinture de Mr Kobayashi', 'art_moderne.png', '', 'non vendu', 9),
+(38, 'La Cene vide ', 350, 'bon pour le muse', 'Le cauchemar des acteurs ', 'cÃ¨ne_vide.png', '', 'non vendu', 9),
+(39, 'Art comtemporain', 190, 'bon pour le muse', 'Peinture d un etudiant en art', 'art_comtemporain.png', '', 'non vendu', 6),
+(40, 'La folie ', 230, 'bon pour le muse', 'Tableau des plus impressionnants', 'la_folie.png', '', 'non vendu', 6),
+(41, 'Les joueurs de cartes', 560, 'feraille ou tresor', 'oeuvre historique sur les ravages de la guerre', 'cartes.png', '', 'non vendu', 6),
+(42, 'Playmobil', 1000, 'bon pour le muse', 'Beau et original, que demander de plus ', 'playmobil.png', '', 'non vendu', 6),
+(43, 'Veste Gucci', 560, 'accesoires vip', 'Veste en poil de belette', 'veste_gucci.jpg', '', 'non vendu', 10),
+(44, 'T-shirt Gucci', 140, 'accesoires vip', 'Authentique t-shirt', 'tshirt_gucci.jpg', '', 'non vendu', 10),
+(45, 'tshirt Versace', 440, 'accesoires vip', 't-shirt luxueux pour personnes luxueuses', 'tshirt_versace.jpg', '', 'non vendu', 10),
+(46, 'Peignoir Versace', 690, 'accesoires vip', 'Versace pour vous servir, Versace pour vous seduire', 'peignoire_versace.jpg', '', 'vendu', 10),
+(47, 'Rolex ', 1200, 'accesoires vip', 'Montre ayant appartenu au fameux  Roger Federer', 'rolex.jpg', '', 'non vendu', 8),
+(48, 'Montre winner', 280, 'accesoires vip', 'La montre pour les winners ', 'montre_winner.jpg', '', 'non vendu', 8),
+(49, 'Casquette de luxe ', 230, 'accesoires vip', 'Casquette avec un dessin de tigre ', 'casquette_luxe.jpg', '', 'non vendu', 8),
+(50, 'Bonnet UGG', 20, 'accesoires vip', 'Bonnet parfait pour la saison hivernale', 'bonnet_ugg.jpg', '', 'non vendu', 8),
+(51, 'Visiere Louis Vuitton', 540, 'accesoires vip', 'Le soleil ne sera plus votre ennemi', 'visiere_lv.jpg', '', 'non vendu', 8),
+(52, 'test', 32500, 'bon pour le muse', 'je suis beau', '', '', 'non vendu', 2),
+(54, 'Ornement', 130, 'feraille ou tresor', 'Ornement qui se mariera bien avec vos interieurs', 'ornement.png', '', 'non vendu', 10),
+(55, 'Colonne Harmonie ', 800, 'feraille ou tresor', 'Colonne harmonie venant du palais maillot', 'colonne_harmonie.png', '', 'non vendu', 10),
+(56, 'Or en vrac ', 1200, 'feraille ou tresor', 'Lot de nombreux objets en or massif', 'or.png', '', 'non vendu', 10),
+(57, 'Snoopy', 450, 'bon pour le muse', 'Excellente oeuvre du jeune prodige allemand Gustav ', 'snoopy.png', '', 'non vendu', 8),
+(58, 'Le Cri', 2000, 'bon pour le muse', 'Le cri de Munch une oeuvre prodigieuse', 'cri.png', '', 'non vendu', 8),
+(59, 'Autoportrait', 5000, 'bon pour le muse', 'Autoportrait de Vincent Van Gogh Attention aux yeux et aux oreilles', 'van_gogh.jpg', '', 'non vendu', 8),
+(60, 'Balenciaga', 650, 'accesoires vip', 'Chaussures balenciaga avec sa semelle des plus incroyables', 'balenciaga.jpg', '', 'non vendu', 9),
+(61, 'Magnum', 350, 'accesoires vip', 'Magnum de Grey Goose bu lors du conseil des ministres', 'grey_goose.png', '', 'non vendu', 9),
+(62, 'Sneakers', 800, 'accesoires vip', 'Les fameuses sneakers Travis Scott active the SICKO MODE', 'travis.png', '', 'non vendu', 9);
 
 -- --------------------------------------------------------
 
@@ -310,7 +349,9 @@ ALTER TABLE `infolivraison`
 -- Contraintes pour la table `offre`
 --
 ALTER TABLE `offre`
-  ADD CONSTRAINT `offre_ibfk_1` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`);
+  ADD CONSTRAINT `offre_ibfk_1` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`),
+  ADD CONSTRAINT `offre_ibfk_2` FOREIGN KEY (`id_vendeur`) REFERENCES `vendeur` (`id_vendeur`),
+  ADD CONSTRAINT `offre_ibfk_3` FOREIGN KEY (`id_acheteur`) REFERENCES `acheteur` (`id_acheteur`);
 
 --
 -- Contraintes pour la table `panier`
