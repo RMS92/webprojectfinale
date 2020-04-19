@@ -107,7 +107,7 @@
             	}
                 
                 // Insertion d'une nouvelle meilleure offre
-                $sql="INSERT INTO offre(statut_vente, id_produit) VALUES ('non vendu','$id_item')";
+                $sql="INSERT INTO offre(statut_vente, id_produit, id_vendeur) VALUES ('non vendu','$id_item', '$id_vendeur')";
                 $result = mysqli_query($db_handle, $sql);
                 
                 echo "Félicitations !<br>". ' ' ."La vente a commencé !";
@@ -150,7 +150,7 @@
             	}
                 
                 // Insertion d'une nouvelle meilleure offre
-                $sql="INSERT INTO offre(statut_vente, id_produit) VALUES ('non vendu','$id_item')";
+                $sql="INSERT INTO offre(statut_vente, id_produit, id_vendeur) VALUES ('non vendu','$id_item', '$id_vendeur')";
                 $result = mysqli_query($db_handle, $sql);
 
                 // Insertion d'une nouvel achat immédiat

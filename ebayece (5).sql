@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 19 avr. 2020 à 12:10
--- Version du serveur :  5.7.26
--- Version de PHP :  7.2.18
+-- Généré le :  Dim 19 avr. 2020 à 19:53
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -168,25 +168,15 @@ DROP TABLE IF EXISTS `offre`;
 CREATE TABLE IF NOT EXISTS `offre` (
   `id_offre` bigint(50) NOT NULL AUTO_INCREMENT,
   `statut_vente` varchar(20) NOT NULL,
+  `offre_acheteur` bigint(255) DEFAULT NULL,
   `id_produit` bigint(50) NOT NULL,
+  `id_vendeur` bigint(50) NOT NULL,
+  `id_acheteur` bigint(50) DEFAULT NULL,
   PRIMARY KEY (`id_offre`),
-  KEY `id_produit` (`id_produit`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `offre`
---
-
-INSERT INTO `offre` (`id_offre`, `statut_vente`, `id_produit`) VALUES
-(5, 'non vendu', 27),
-(6, 'non vendu', 29),
-(7, 'non vendu', 33),
-(8, 'non vendu', 37),
-(9, 'non vendu', 39),
-(10, 'non vendu', 41),
-(11, 'non vendu', 43),
-(12, 'non vendu', 46),
-(13, 'non vendu', 50);
+  KEY `id_produit` (`id_produit`),
+  KEY `id_vendeur` (`id_vendeur`),
+  KEY `id_acheteur` (`id_acheteur`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -242,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `id_vendeur` bigint(50) NOT NULL,
   PRIMARY KEY (`id_produit`),
   KEY `id_vendeur` (`id_vendeur`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `produit`
@@ -268,13 +258,14 @@ INSERT INTO `produit` (`id_produit`, `nom`, `prix`, `categorie`, `description`, 
 (43, 'Veste Gucci', 560, 'accesoires vip', 'Veste en poil de belette', 'veste_gucci.jpg', '', 'non vendu', 10),
 (44, 'T-shirt Gucci', 140, 'accesoires vip', 'Authentique t-shirt', 'tshirt_gucci.jpg', '', 'non vendu', 10),
 (45, 'tshirt Versace', 440, 'accesoires vip', 't-shirt luxueux pour personnes luxueuses', 'tshirt_versace.jpg', '', 'non vendu', 10),
-(46, 'Peignoir Versace', 690, 'accesoires vip', 'Versace pour vous servir, Versace pour vous seduire', 'peignoire_versace.jpg', '', 'non vendu', 10),
+(46, 'Peignoir Versace', 690, 'accesoires vip', 'Versace pour vous servir, Versace pour vous seduire', 'peignoire_versace.jpg', '', 'vendu', 10),
 (47, 'Rolex ', 1200, 'accesoires vip', 'Montre ayant appartenu au fameux  Roger Federer', 'rolex.jpg', '', 'non vendu', 8),
 (48, 'Montre winner', 280, 'accesoires vip', 'La montre pour les winners ', 'montre_winner.jpg', '', 'non vendu', 8),
 (49, 'Casquette de luxe ', 230, 'accesoires vip', 'Casquette avec un dessin de tigre ', 'casquette_luxe.jpg', '', 'non vendu', 8),
 (50, 'Bonnet UGG', 20, 'accesoires vip', 'Bonnet parfait pour la saison hivernale', 'bonnet_ugg.jpg', '', 'non vendu', 8),
 (51, 'Visiere Louis Vuitton', 540, 'accesoires vip', 'Le soleil ne sera plus votre ennemi', 'visiere_lv.jpg', '', 'non vendu', 8),
-(52, 'test', 32500, 'bon pour le muse', 'je suis beau', '', '', 'non vendu', 2);
+(52, 'test', 32500, 'bon pour le muse', 'je suis beau', '', '', 'non vendu', 2),
+(53, 'testoffre', 10, 'feraille ou tresor', 'lllllll', 'Logo.png', '', 'non vendu', 6);
 
 -- --------------------------------------------------------
 
@@ -332,7 +323,9 @@ ALTER TABLE `infolivraison`
 -- Contraintes pour la table `offre`
 --
 ALTER TABLE `offre`
-  ADD CONSTRAINT `offre_ibfk_1` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`);
+  ADD CONSTRAINT `offre_ibfk_1` FOREIGN KEY (`id_produit`) REFERENCES `produit` (`id_produit`),
+  ADD CONSTRAINT `offre_ibfk_2` FOREIGN KEY (`id_vendeur`) REFERENCES `vendeur` (`id_vendeur`),
+  ADD CONSTRAINT `offre_ibfk_3` FOREIGN KEY (`id_acheteur`) REFERENCES `acheteur` (`id_acheteur`);
 
 --
 -- Contraintes pour la table `panier`
