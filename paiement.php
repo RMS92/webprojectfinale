@@ -111,6 +111,48 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 
 ?>
+<?php
+
+     $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
+     
+     if(isset($_POST['validation'])) 
+     {
+     	$cb = htmlspecialchars($_POST['cb']);
+     	$cryptogramme = htmlspecialchars($_POST['cryptogramme']);
+     	
+
+     	if(!empty($_POST['cb']) AND !empty($_POST['cryptogramme']) )
+     	{
+     		/*$acceptterms = htmlspecialchars($_POST['acceptterms']);
+     		$choixA = htmlspecialchars($_POST['choixA']);
+     		$choixV = htmlspecialchars($_POST['choixV']);*/
+
+     		$cbtaille = strlen($cb);
+     		if($cbtaille == 16)
+     		{
+     			$cryptogrammetaille = strlen($cryptogramme);
+     			if($cryptogrammetaille == 3)
+     			{    						    		   
+     				$erreur = "Votre carte a bien été ajoutée !";
+     			}
+     			else
+     			{
+     				$erreur = "Votre cryptogramme doit avoir 3 chiffres !";
+     			}
+
+     		}
+     		else
+     		{
+     			$erreur = "Votre cb doit avoir 16 chiffres !";
+     		}
+
+     	}
+     	else
+     	{
+     		$erreur = "Tous les champs doivent etre complétés !";
+     	}
+     }
+?>
 
 
 <!DOCTYPE html>
@@ -124,7 +166,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     <link rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/inscription.css">
 
     
 
@@ -237,16 +279,17 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     <!--PARTIE DU MILIEU---------------------------------------------------------->
 	<div class="milieu">
 		
-		<div class="casepaiement">
+		<div class="casepaiement" style="height: 500px;">
 					<div class="titre" >
 								<h2 style="text-align: center;">Paiement</h2>
 					</div>
 					<div class="formulaire" style="margin-top: 50px; margin-bottom: 25px">
 
-							  <form oninput="total.value = (nights.valueAsNumber * 99) + ((guests.valueAsNumber - 1) * 10)">
-							  	<table style=" text-align: center;margin-left:500px" >
+							  <form method="POST" >
+							  	<table style=" text-align: center;margin-left:0px; margin: auto;" >
+
 							  		<tr>
-							  			<td><input type="text" id="cb" name="cb" placeholder="Numéro carte bancaire" required></td>
+							  			<td><input type="number" id="cb" name="cb" placeholder="Numéro carte bancaire" required></td>
 							  		</tr>
 							  		<tr>
 							  			<td><label style="font-size: 25px;"> Expire fin :</label></td>
@@ -281,18 +324,30 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 							  		</tr>
 
 							  		<tr>
-							  			<td><label style="font-size: 25px;">Cryptogramme visuel :</label></td>
-							  			<td><input type="text" id="cryptogramme" name="cryptogramme" placeholder="123" style="width: 50px;" required></td>
+							  			<td><label style="font-size: 25px;">Cryptogramme visuel :</label>
+							  			<input type="number" id="cryptogramme" name="cryptogramme" placeholder="123" style="width: 50px;margin: auto;" required></td>
 							  		</tr>
 							  		<tr>
-							  			<td > <a class = "style"style="margin-left: 60px;margin-top: 15px" href="paiement.php?supprime=<?=$articleinfos['id_produit']?>">Valider paiement</a></td>
+							  			<td><input type="submit"  name="validation" value="Enregistrer ma CB" style="background-color: black; color: white"></td>
 							  		</tr>
+							  	</form>
+							  	<?php
+									if(isset($erreur))
+									{
+										echo '<p style="margin-left:150px; color:red">'. $erreur."</p>";
+									}
+								?>
+							  		
 							  		
 
 							  	</table>						     
 						      
 					</div>
-					
+					<table style=" text-align: center;margin-left:0px; margin: auto;" >
+					<tr>
+						<td > <a class = "style"style="margin-left: 0px;margin-top: 15px;margin-bottom: 50px; background-color: green;color: white; font-size: 25px; width: 150px; height: 80px;" href="paiement.php?supprime=<?=$articleinfos['id_produit']?>">Valider Commande</a></td>
+					</tr>
+					</table>	
 		</div>	
 		
 
