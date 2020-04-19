@@ -107,6 +107,12 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	     $requser->execute(array($getarticle));
 	     $articleinfos= $requser->fetch();
 
+	     $reqoffre = $bdd->prepare("SELECT * FROM offre WHERE id_produit = ?");
+	     $reqoffre->execute(array($getarticle));
+	     $articleofre = $reqoffre->fetch();
+
+
+
 	     if(isset($_POST['buy']))
          {
          	$insertproduit = $bdd->prepare("INSERT INTO panierventre(id_produit, nom, prix, categorie, description, photo, video, id_acheteur) VALUES (?,?,?,?,?,?,?,?)");
@@ -118,6 +124,21 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
          else
    	     {
    	    	
+   	     }
+
+
+   	     if(isset($_POST['validerbid']))
+         {
+         	$offre_acheteur = $_POST['bid'];
+         	$insertproduit = $bdd->prepare("UPDATE offre SET offre_acheteur = ? WHERE id_produit = ?");
+
+     		$insertproduit->execute(array($offre_acheteur, $articleinfos['id_produit']));
+
+     		
+         }
+         else if(($articleofre['id_produit'] != $articleinfos['id_produit']) AND isset($_GET['id_acheteur']))
+   	     {
+   	    	$erreurbid = "Le vendeur n'a pas autorisé d'offre! ";
    	     }
     
 
@@ -319,8 +340,32 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 					<h6 class="style" style="background: black; color: white; margin-top: 140px; margin-left: -167px;">Best bid:</h6>
 					<p style="margin-top: 185px;margin-left: 120px">A good one is around or higher than the best bid</p>
 					<h6 class="style" style="margin-top: 0px; margin-left: 100px;cursor: pointer; -webkit-border-radius:5px;">place your bid:</h6>
-					<input type="text" name="" placeholder="Bid" style="margin-top:45px;margin-left:-115px;cursor: pointer; -webkit-border-radius:5px;">
-					<input type="submit" name="" placeholder="Bid" style="margin-top:0px;margin-left:0px;cursor: pointer; -webkit-border-radius:5px;">
+
+					<form method="POST">
+
+					<input type="text" name="bid" placeholder="Bid" style="margin-top:45px;margin-left:-115px;cursor: pointer; -webkit-border-radius:5px;">
+
+					<?php
+					if(isset($_GET['id_acheteur']))
+						{?>
+					<input type="submit" name="validerbid" placeholder="Bid" style="margin-top:0px;margin-left:0px;cursor: pointer; -webkit-border-radius:5px;">
+					<?php
+				     }
+				     else
+				     {?>
+
+				     	<h6 style="cursor:pointer;background: white; color: red; margin-top: 20px; margin-left: 100px;">Veuillez vous-<a href="connexion.php" style="color : red">connectez</a> a votre compte acheteur</h6>
+
+                      <?php
+				     }
+					?>
+
+					</form>
+					<?php
+				           if(isset($erreurbid)){
+					         echo '<p style="cursor:pointer;background: white; color: red; margin-top: 20px; margin-left: 100px;">'. $erreurbid."</p>";
+				               }
+				           ?></td>
 
 					
 				</div>
