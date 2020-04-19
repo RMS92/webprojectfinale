@@ -186,44 +186,15 @@ if(isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0)
 				      		</form>
 							</div>
 						</div>
-						<div class="bandeau_droite">
-							<div class="titre" >
-								<h2 style="text-align: center;"> Shipping</h2>
-							</div>
-							<div class="formulaire" style="margin-top: 50px; margin-bottom: 25px">
-
-							  <form>
-							  <input type="text" id="pays" name="pays" placeholder="Pays vendeur" >
-						 		<br>
-						      <input type="text" id="prenom" name="prenom" placeholder="Prenom vendeur" >
-						 		<br>
-						 	  <input type="text" id="nom" name="nom" placeholder="Nom vendeur" >
-						 		<br>
-						      <input type="text" id="adresse" name="adresse"placeholder="adresse vendeur" >
-						 		<br>
-						      
-						      <input type="text" id="region" name="region" placeholder="Région vendeur" >
-						        <br> 
-						      <input type="text" id="ville" name="ville" placeholder="Ville vendeur">
-						 		<br>
-						 	  <input type="text" id="code_postal" name="code_postale" placeholder="code postal vendeur" >
-						 		<br>	
-						      
-						      <input type="text" id="telephone" name="telephone" placeholder="Telephone vendeur">
-						      <br>
-
-						      <input type="submit" value="Update my shipping" style="background-color: black; color: white;margin-top: 32px;" /> 
-						  </form>
-						      
-							</div>
-						</div>
+					
 					</div>
 				</div>
 				<div class="casedroite">
 					<div class="titre" >
 								<h2 style="text-align: center;"> Gestion des ventes</h2>
 					</div>
-					<input type="button" name="gestionvente" value="Accéder à la Gestion des ventes" style="background-color: blue; color: white;margin-top: 20px;">
+					<a href="<?php echo "gestionventes.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>">
+					<input type="button" name="gestionvente" value="Accéder à la Gestion des ventes" style="background-color: blue; color: white;margin-top: 20px;"></a>
 					
 				</div>	
 			</div>

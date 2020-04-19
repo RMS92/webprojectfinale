@@ -126,13 +126,17 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
    	    	
    	     }
 
-
+          
    	     if(isset($_POST['validerbid']))
          {
          	$offre_acheteur = $_POST['bid'];
-         	$insertproduit = $bdd->prepare("UPDATE offre SET offre_acheteur = ? WHERE id_produit = ?");
 
-     		$insertproduit->execute(array($offre_acheteur, $articleinfos['id_produit']));
+         	if($offre_acheteur > $articleofre['offre_acheteur']){
+
+         	    $insertproduit = $bdd->prepare("UPDATE offre SET offre_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
+
+     		    $insertproduit->execute(array($offre_acheteur, $_GET['id_acheteur'],$articleinfos['id_produit']));
+     		}
 
      		
          }
@@ -189,7 +193,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 							<tr>
 								<td> <input type="search" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
 								</td>
-								<td><input  class="bouton" type="submit" name="" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+								<td><img class="petitlogo" src="images/loupe.png" width="25px" style="margin-left: 0px;"></td>
 							</tr>
 						</table>
 
@@ -343,12 +347,13 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 					<form method="POST">
 
-					<input type="text" name="bid" placeholder="Bid" style="margin-top:45px;margin-left:-115px;cursor: pointer; -webkit-border-radius:5px;">
+					<input type="text" name="bid" placeholder="Best bid : <?php echo $articleofre['offre_acheteur'];?>" value=""
+					style="margin-top:45px;margin-left:-115px;cursor: pointer; -webkit-border-radius:5px;">
 
 					<?php
 					if(isset($_GET['id_acheteur']))
 						{?>
-					<input type="submit" name="validerbid" placeholder="Bid" style="margin-top:0px;margin-left:0px;cursor: pointer; -webkit-border-radius:5px;">
+					<input type="submit" name="validerbid"  style="margin-top:0px;margin-left:0px;cursor: pointer; -webkit-border-radius:5px;">
 					<?php
 				     }
 				     else

@@ -2,97 +2,45 @@
 session_start();
 
 $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
-
-if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0) OR (!isset($_GET['id_vendeur']) AND isset($_GET['id_acheteur'])) OR (isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR (!isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR isset($_GET['pseudo_admin']))
-{
-
-    $changemain = "main.php";
-    $changecompteA = "connexion.php";
-    $changecompteB= "connexionadmin.php";
-    $changecompteC= "panier.php";
-
-    $changecate = "categorie.php";
-    $changecate2 = "categorie2.php";
-    $changecate3 = "categorie3.php";
-    $changeenchere = "enchere.php";
-    $changevendre = "";
-    $changecondition = "conditions.php";
-    $changeenchere = "enchere.php";
+     
 
 
-    
 
-    if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0))
-    {
-	    $getid = intval($_GET['id_acheteur']);
-	    $requser = $bdd->prepare("SELECT * FROM acheteur WHERE id_acheteur = ?");
-	    $requser->execute(array($getid));
-	    $userinfosA = $requser->fetch();
-
-	    if(isset($_SESSION['id_acheteur']) AND $userinfosA['id_acheteur'] == $_SESSION['id_acheteur'])
-	    {
-	    	$changemain = "main.php?id_acheteur=".$_SESSION['id_acheteur']."";
-		    $changecompteA = "compteacheteur.php?id_acheteur=".$_SESSION['id_acheteur']."";
-		    $changecompteB = "";
-		    $changecate = "categorie.php?id_acheteur=".$_SESSION['id_acheteur']."";
-		    $changecate2 = "categorie2.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changecate3 = "categorie3.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changevendre = "vendre.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changecondition = "conditions.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changecompteC = "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
-            $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
-	    }
+     if(isset($_GET['supprime']) AND !empty($_GET['supprime']))
+     {
+   	    $supprime = (int) $_GET['supprime'];
+   	    $req = $bdd->prepare("DELETE FROM offre WHERE id_produit = ?");
+   	    $req->execute(array($supprime));
     }
 
-    else if((isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0))
-    {
-	    $getid = intval($_GET['id_vendeur']);
-	    $requser = $bdd->prepare("SELECT * FROM vendeur WHERE id_vendeur = ?");
-	    $requser->execute(array($getid));
-	    $userinfosA = $requser->fetch();
-
-	    if(isset($_SESSION['id_vendeur']) AND $userinfosA['id_vendeur'] == $_SESSION['id_vendeur'])
-	    {
-		    $changemain = "main.php?id_vendeur=".$_SESSION['id_vendeur']."";
-		    $changecompteA = "comptevendeur.php?id_vendeur=".$_SESSION['id_vendeur']."";
-		    $changecompteB = "";
-		    $changecate = "categorie.php?id_vendeur=".$_SESSION['id_vendeur']."";
-		    $changecate2 = "categorie2.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecate3 = "categorie3.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changevendre = "vendre.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecondition = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
-            $changecompteC = "";
-            $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
-	    }
+     if(isset($_GET['supprime']) AND !empty($_GET['supprime']))
+     {
+   	    $supprime = (int) $_GET['supprime'];
+   	    $req = $bdd->prepare("DELETE FROM offre WHERE id_produit = ?");
+   	    $req->execute(array($supprime));
     }
 
-    else if(isset($_GET['pseudo_admin']))
-    {
-	    $getid = $_GET['pseudo_admin'];
-	    $requser = $bdd->prepare("SELECT * FROM admin WHERE pseudo_admin = ?");
-	    $requser->execute(array($getid));
-	    $userinfosA = $requser->fetch();
-
-	    if(isset($_SESSION['pseudo_admin']) AND $userinfosA['pseudo_admin'] == $_SESSION['pseudo_admin'])
-	    {
-		    $changecompteB = "admin.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-		    $changecompteA = "";
-		    $changemain = "main.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-		    $changecate = "categorie.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-		    $changecate2 = "categorie2.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changecate3 = "categorie3.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changevendre = "vendre.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changecondition = "conditions.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-            $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-	    }
+     if(isset($_GET['accepte']) AND !empty($_GET['accepte']))
+     {
+   	    $accepte = $_GET['accepte'];
+   	    $req = $bdd->prepare("UPDATE produit SET statut = 'vendu' WHERE id_produit = ?");
+   	    $req->execute(array($accepte));
     }
 
+     if(isset($_POST['valider']))
+     {
+   	    $id_produit = $_POST['id'];
+   	    $prixoffre = $_POST['offre'];
+   	    $req = $bdd->prepare("UPDATE offre SET offre_acheteur = ? WHERE id_produit = ?");
+   	    $req->execute(array($prixoffre, $id_produit));
+    }
+
+    $getvendeur = $_SESSION['id_vendeur'];
+	$vendeur = $bdd->query("SELECT * FROM offre WHERE id_vendeur = '$getvendeur'"); 
 
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -106,13 +54,13 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     <link rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/comptevendeur.css">
 
     
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/comptevendeur.js"></script>
 
     
 
@@ -126,7 +74,8 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			<div class="row">
 				<div class="col-lg-2 col-md-2 col-sm-12">
 
-					<a href="<?php echo $changemain  ?>"><img src="images/logo.png" width="170px" style="margin-top: 5px; margin-left: 10px"></a>
+					<a href="<?php echo "main.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>">
+						<img src="images/logo.png" width="170px" style="margin-top: 5px; margin-left: 10px"></a>
 					
 				</div>
 
@@ -150,15 +99,14 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 				<div class="col-lg-2 col-md-2 col-sm-12"> <!--height 80-->
 
-					<a href="<?php echo $changecompteC  ?>"><img class="petitlogo" src="images/panier.png" width="25px"></a>
+					<a href="<?php echo "panier.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>"><img class="petitlogo" src="images/panier.png" width="25px"></a>
+					
+					<a href="<?php echo "comptevendeur.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>"><img class="petitlogo" src="images/compte.png" width="40px"></a>
 
-					
-		            <a href="<?php echo $changecompteA  ?>"><img class="petitlogo" src="images/compte.png" width="40px"></a>
-					
-					<a href="<?php echo $changecompteB  ?>"><img class="petitlogo"src="images/admin.png" width="25px"></a>
+					<img class="petitlogo"src="images/admin.png" width="25px">
 
 					<div>
-					    <a  class="nav-link style" href="<?php echo $changevendre  ?>" style="margin-top: 12px; margin-left: 105px; width: 65px;">Sell</a>
+					    <a  class="nav-link style" href="<?php echo "vendre.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>" style="margin-top: 12px; margin-left: 105px; width: 65px;">Sell</a>
 				    </div>
 					
 				</div>
@@ -177,20 +125,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 					<div>
                          <ul class="stylelist">
-                            
-                           
-                              <li class="align"><a href="<?php echo $changecate ?>" class="nav-link style" style="width: 155px; height: 40px;">Ferraille ou Trésor</a></li>
-	                        
-	                                                                           
-                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;" href="<?php echo $changecate2 ?>">Bon pour le Musée</a></li>
-
-
-
-                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo $changecate3 ?>">Accessoire VIP</a></li>
-
-
-
-                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo  $changeenchere ?>">Enchères</a></li>
+                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo "categorie.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>">Ferraille ou Trésor</a></li>
+                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo "categorie2.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>">Bon pour le Musée</a></li>
+                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo "categorie3.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>">Accessoire VIP</a></li>
+                             <li class="align"><a class="nav-link style" style="width: 155px; height: 40px;"href="<?php echo "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>">Enchères</a></li>
 
                         </ul>
                     </div>
@@ -215,104 +153,60 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 		</div>
 	</nav>
 
+
     <!--PARTIE DU MILIEU---------------------------------------------------------->
 	<div class="milieu">
 		<div class="container-fluid">
 
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12" style="height:45px; color: white; background-color: black">
-					<h3>Compte vendeur</h3>
+					<h3>Gestion vendeur</h3>
 				</div>
 
 			</div>
 
 			<div class="row">
-				<div class="col-lg-11 col-md-11 col-sm-12" style="height:380px; border: 1px solid black; margin-left:50px; margin-bottom: 10px; margin-top: 15px;">
+				<div class="col-lg-11 col-md-11 col-sm-12" style="height:500px; border: 1px solid black; margin-left:50px; margin-bottom: 40px; margin-top: 15px;">
 
 					<table>
 						<tr>
-							<td><h5 class="style"; style="margin-top: 10px;">Gestion des ventes</h5></td>
+							<td><h5 class="style"; style="margin-top: 10px;">Gestion des vendeurs</h5></td>
 						</tr>
-						<tr>
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px;">Titre:</p></td>
-							<td><input type="text" name="" style="margin-left: -110px;color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Prix de vente</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Best bid(buyer)</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Accepter" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-						</tr>
-
-						<tr>
-							<tr>
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px;">Titre:</p></td>
-							<td><input type="text" name="" style="margin-left: -110px;color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Prix de vente</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Best bid(buyer)</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Accepter" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-						</tr>
-						<tr>
-							<tr>
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px;">Titre:</p></td>
-							<td><input type="text" name="" style="margin-left: -110px;color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Prix de vente</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Best bid(buyer)</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Accepter" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-						</tr>
-						<tr>
-							<tr>
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px;">Titre:</p></td>
-							<td><input type="text" name="" style="margin-left: -110px;color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Prix de vente</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Best bid(buyer)</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Accepter" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-						</tr>
-
-						<tr>
-							<tr>
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px;">Titre:</p></td>
-							<td><input type="text" name="" style="margin-left: -110px;color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Prix de vente</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Change" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-
-							<td><p class="style" style="margin-left: 20px; margin-top: 14px">Best bid(buyer)</p></td>
-							<td><input type="text" name="" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							<td><input type="submit" name="" value="Accepter" style="background: black; color: white;cursor: pointer; -webkit-border-radius:5px;"></td>
-						</tr>
-
-
-						
 					</table>
-							
+
+					<ul>
+							<?php while($v = $vendeur->fetch()){?>
+
+							<li style="margin-top: 15px;">id acheteur:<?= $v['id_acheteur'] ?> : id produit: <?= $v['id_produit'] ?>: <?= $v['offre_acheteur'] ?> $ <a href="gestionventes.php?supprime=<?= $v['id_produit']?>">Supprimer</a> - <a href="gestionventes.php?accepte=<?= $v['id_produit']?>">accepter</a>
+								
+								<form method="POST">
+								  <table>
+								  	<tr>
+								  		<td><input type="text" name="offre" value=" <?= $v['offre_acheteur'] ?>"></td>
+								        <td><input type="hidden" name="id" value="<?= $v['id_produit']?>"></td>
+								        <td><input type="submit" name="valider"></td>
+								  	</tr>
+									
+								  </table>
+								</form>
+								
+
+
+
+
+							</li>
+
+							<?php
+						     }
+							?>
+					</ul>
 						
-					
+				      	<a href="sedeconnecter.php"><center><input type="button" value=" Se Déconnecter" style="background-color: red; color: white; margin-top: 25px;width: 220px; height: 55px; font-size: 25px;" ></center></a>
 				</div>
 			</div>
+		</div>
+
+	</div>			
 		</div>
 
 	</div>			
@@ -353,7 +247,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 							<li class="footer-link" style="font-size: 15px; width:200px;">Carrière</li>
 							<li class="footer-link" style="font-size: 15px; width:200px;">Blog</li>
 							<li class="footer-link" style="font-size: 15px; width:200px;">Impressions</li>
-							<li class="footer-link" style="font-size:15px; width: 200px;"><a href="<?php echo $changecondition?>">Conditions d'utilisation</li></a>
+							<li class="footer-link" style="font-size:15px; width: 200px;"><a href="<?php echo "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."" ?>">Conditions d'utilisation</li></a>
 							<li  class="footer-link" style="font-size: 15px; width: 200px ">Politique de confidentialité</li>
 						</ul>
 					</div>
@@ -379,7 +273,3 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 </body>
 </html>
-
-<?php 
-}
-?>

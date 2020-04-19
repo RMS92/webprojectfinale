@@ -224,7 +224,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 			</div>
 
 			<div class="row" style="margin-top: 15px; margin-bottom: 15px;">
-				<div class="col-lg-6 col-md-6 col-md-6" style="height: 1200px;">
+				<div class="col-lg-12 col-md-12 col-sm-12" style="height: 1200px;">
 
 					<form action="ajout_item.php" method="post" enctype="multipart/form-data">
 					<h4 class="style" style="margin-left: 150px; margin-top: 10px;"><form action="ajout_item.php" method="POST">
@@ -233,7 +233,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 						<table>
 							<tr>
 								<td></td>
-								<td><input type="hidden"  style="margin-top: 10px;" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" /></td>
+								<td ><input type="hidden"  style="margin-top: 10px;" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" /></td>
 							</tr>
 							<tr>
 								<td>Nom :</td>
@@ -285,17 +285,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 					
 				</div>
-				<div class="col-lg-6 col-md-6 col-md-6" style="height: 380px; margin-top: 50px; border: 1px solid black;">
-
-					<h4 class="style" style="margin-left: 140px; margin-top: 60px;">Place a bid</h4>
-					<h6 class="style" style="background: black; color: white; margin-top: 140px; margin-left: -167px;">Best bid:</h6>
-					<p style="margin-top:180px;margin-left: 120px">A good one is around or less than the best bid</p>
-					<h6 class="style" style="margin-top: 0px; margin-left: 100px;cursor: pointer; -webkit-border-radius:5px;">place your bid:</h6>
-					<input type="text" name="" placeholder="Bid" style="margin-top:45px;margin-left:-115px;cursor: pointer; -webkit-border-radius:5px;">
-					<input type="submit" name="" placeholder="Bid" style="margin-top:0px;margin-left:0px;cursor: pointer; -webkit-border-radius:5px;">
-
-					
-				</div>
+				
 				
 			</div>
 		</div>
