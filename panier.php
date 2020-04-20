@@ -108,8 +108,14 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
    	     header("Location: panier.php?id_acheteur=".$_SESSION['id_acheteur']);
    }
 
-    $getidacheteur = $_GET['id_acheteur'];
-    $userinfosA = $bdd->query("SELECT * FROM panierventre WHERE id_acheteur = '$getidacheteur'"); 
+    if(isset($_GET['id_acheteur']))
+    {
+    	$getidacheteur = $_GET['id_acheteur'];
+        $userinfosA = $bdd->query("SELECT * FROM panierventre WHERE id_acheteur = '$getidacheteur'");
+    }
+
+    $userinfosA = $bdd->query("SELECT * FROM panierventre");
+     
     
 
 
