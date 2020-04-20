@@ -131,12 +131,12 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
          {
          	$offre_acheteur = $_POST['bid'];
 
-         	if($offre_acheteur > $articleofre['offre_acheteur']){
+         	
 
          	    $insertproduit = $bdd->prepare("UPDATE offre SET offre_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
 
      		    $insertproduit->execute(array($offre_acheteur, $_GET['id_acheteur'],$articleinfos['id_produit']));
-     		}
+     		
 
      		
          }
