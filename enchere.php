@@ -114,10 +114,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     	        $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
     	        $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
     	     }
-    	     else
-    	     	{
-   	     	        $message = "prix trop faible";
-    	     	}
+    	    
     	    
     	 }    	 
     	 else if($getidacheteur != $getidach)
@@ -128,18 +125,24 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
     	     	if($montantpreced['montant_acheteur'] == 0)
     	     	{
-    	     		$getprix = $getmontant;
+    	     		if($getmontant > $getprix)
+    	 	         {
+    	     		    $getprix = $getmontant;
     	     		
-    	     	    $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
-    	             $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
+    	     	        $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
+    	                 $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
+    	             }
     	     	}
     	     	else if($montantpreced['montant_acheteur'] > 0)
     	     	{
+    	     		if($getmontant > $getprix)
+    	 	         {
     	     		
-    	     		 $getprix = $montantpreced['montant_acheteur'] + 1;
+    	     		     $getprix = $montantpreced['montant_acheteur'] + 1;
 
-    	     		 $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
-    	             $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
+    	     		     $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
+    	                 $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
+    	             }
     	     	    
     	     	    
     	     	}
