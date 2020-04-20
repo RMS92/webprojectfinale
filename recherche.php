@@ -91,10 +91,11 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
+
     if(isset($_GET['r']) AND !empty($_GET['r']))
     {
     	$r = htmlspecialchars($_GET['r']);
-    	$article = $bdd->query('SELECT * FROM produit WHERE nom LIKE "%'.$r.'%" ');
+    	$article = $bdd->query('SELECT * FROM produit WHERE statut = "non vendu" AND nom LIKE "%'.$r.'%" ');
 
     } 
 
