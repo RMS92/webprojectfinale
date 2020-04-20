@@ -91,7 +91,59 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
-    $userinfosA = $bdd->query("SELECT * FROM enchere INNER JOIN produit ON enchere.id_produit = produit.id_produit"); 
+    $getidacheteur = $_GET['id_acheteur']; 
+
+    if(isset($_POST['enchere']) AND isset($_GET['id_acheteur']))
+    {
+    	$getidproduit = $_POST['idproduit'];
+    	$getprix = $_POST['prix'];
+    	$getmontant = $_POST['montant'];
+    	$getidach = $_POST['idacheteur']; 
+
+    	
+
+    	 if($getidacheteur == $getidach)
+    	 {
+    	 	
+
+    	 	if($getmontant > $getprix)
+    	 	{
+    	        $getprix = $getprix + 1;
+
+    	        $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
+    	        $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
+    	     }
+    	     else
+    	     	{
+   	     	        $message = "prix trop faible";
+    	     	}
+    	    
+    	 }    	 
+    	 else if($getidacheteur != $getidach)
+    	     {  
+
+    	     	$reqmontant = $bdd->query("SELECT * FROM enchere WHERE id_acheteur = '$getidach'");
+    	     	$montantpreced = $reqmontant->fetch();
+
+    	     	
+
+    	     	if($getmontant > $montantpreced['montant_acheteur'])
+    	     	{
+    	     		 $getprix = $montantpreced['montant_acheteur'] + 1;
+
+    	     		 $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
+    	             $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
+    	     	}
+    	     	else
+    	     	{
+   	     	        $message = "Montant maximal trop faible pour Surenchérir";
+    	     	}
+    	    }
+    	     	
+
+    }
+
+             $userinfosA = $bdd->query("SELECT * FROM enchere INNER JOIN produit ON enchere.id_produit = produit.id_produit"); 
 ?>
 
 
@@ -234,22 +286,36 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 								# code...
 							 ?>
 
-							<li class = "style" style="margin-top: 25px; margin-left: 15px; margin-bottom : 20px;width: 250px;"> Titre :<?= $info['nom'] ?> <br>Categorie : <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br> Détails : <?= $info['description'] ?><br><br> Prix de l'enchère: <br><strong>
+							<li class = "style" style="margin-top: 25px; margin-left: 70px; margin-bottom : 20px;width: 250px;"> Titre : <?= $info['nom'] ?> <br>Categorie : <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br> Détails : <?= $info['description'] ?><br><br> Prix de l'enchère : <br> <strong>
 							
-							<?= $info['prix_surencheri'] ?>$ </strong><br>Date de fin: <?= $info['date_fin'] ?> <br> Heure de fin : <?= $info['heure_fin'] ?><br><br> Surenchérir : 
+							<?= $info['prix_surencheri'] ?>€ </strong><br><br> Montant max a battre : <strong><?= $info['montant_acheteur'] ?>€ </strong><br> <br>Date de fin: <?= $info['date_fin'] ?> <br> Heure de fin : <?= $info['heure_fin'] ?><br><br> Surenchérir : 
 
-							<form action="ajout_item.php" method="post">
-							<input type="number"  name="Prix" placeholder="Insérer surenchère" /><br><br>
+							<form action="" method="post">
+							<input type="hidden" name="idproduit" value="<?php echo $info['id_produit']?>">
+							<input type="number"  name="montant" placeholder="montant max dispo" />
+							<input type="hidden"  name="prix" value="<?php echo $info['prix_surencheri']?>" />
+							<input type="hidden"  name="idacheteur" value="<?php echo $info['id_acheteur']?>" /><br><br>
 							Avez-vous lu nos<a href="conditions.php"> conditions d'utilisation</a> ? 
 
-							<input type="submit" value="Valider Surenchère" style="margin-bottom: 15px" />
+							<input type="submit" name= "enchere" value="Valider Surenchère" style="margin-bottom: 15px" />
 							</form>
+							<?php
+				              if(isset($message)){
+					             echo '<p style="cursor:pointer;background: white; color: red;">'. $message."</p>";
+				                 }
+				              ?>
+
+							  
 							</li>
+
+
 
 							<?php
 							  
 						     }
 							?>
+
+
 						</ul>
 				
 							
@@ -258,6 +324,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 						 
 						
 					</div>
+					
 			</div>
 		</div>	
 			

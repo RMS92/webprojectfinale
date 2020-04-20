@@ -177,14 +177,14 @@ $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
 					<ul>
 							<?php while($v = $vendeur->fetch()){?>
 
-							<li style="margin-top: 15px;">id acheteur:<?= $v['id_acheteur'] ?> : id produit: <?= $v['id_produit'] ?>: <?= $v['offre_acheteur'] ?> $ <a href="gestionventes.php?supprime=<?= $v['id_produit']?>">Supprimer</a> - <a href="gestionventes.php?accepte=<?= $v['id_produit']?>">accepter</a>
+							<li style="margin-top: 20px;">acheteur : <?= $v['id_acheteur'] ?> - id produit : <?= $v['id_produit'] ?> - <?= $v['offre_acheteur'] ?> € <a href="gestionventes.php?supprime=<?= $v['id_produit']?>">Supprimer</a> - <a href="gestionventes.php?accepte=<?= $v['id_produit']?>">accepter</a>
 								
 								<form method="POST">
 								  <table>
 								  	<tr>
-								  		<td><input type="text" name="offre" value=" <?= $v['offre_acheteur'] ?>"></td>
-								        <td><input type="hidden" name="id" value="<?= $v['id_produit']?>"></td>
-								        <td><input type="submit" name="valider"></td>
+								  		<td ><input type="text" name="offre" value=" <?= $v['offre_acheteur'] ?>" class="style" style="margin-top: 10px"></td>
+								        <td><input type="hidden" name="id" value="<?= $v['id_produit']?>" ></td>
+								        <td><input type="submit" name="valider" style="margin-top: 10px"></td>
 								  	</tr>
 									
 								  </table>

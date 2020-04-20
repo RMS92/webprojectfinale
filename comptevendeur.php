@@ -139,7 +139,7 @@ if(isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0)
 		<div class="container-fluid">
 			<div class="row">
 				
-				<div class="col-lg-8 col-md-8 col-sm-12" style="background-color: white;border:1px solid silver; margin-left: 15px;">
+				<div class="col-lg-4 col-md-4 col-sm-12" style="background-color: white;border:1px solid silver; margin-left: 200px; margin-bottom: 10px;">
 					<div class="bandeau">
 						<div class="bandeau_gauche">
 							<div class="titre" >
