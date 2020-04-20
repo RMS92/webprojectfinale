@@ -258,7 +258,7 @@ if(isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0)
 						      <input type="text" id="telephone" name="telephone" placeholder="Telephone vendeur" value="<?php echo $infos['telephone']  ?>">
 						      <br>
 
-						      <input type="submit" value="Update my shipping" style="background-color: black; color: white;margin-top: 32px;" /> 
+						       
 						      
 							</div>
 						</div>
