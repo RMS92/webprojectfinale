@@ -195,12 +195,44 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 				<div class="col-lg-8 col-md-8 col-sm-12">
 
-					<form>
+					<form method="GET" action="recherche.php">
 						<table>
+
 							<tr>
-								<td> <input type="search" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
+								<td> <input type="Search" name ="r" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
 								</td>
-								<td><input  class="bouton" type="submit" name="" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+								<td>
+									<?php if(isset($_GET['id_acheteur']))
+								    {?>
+									<input type="hidden"  name = "id_acheteur" value="<?= $_SESSION['id_acheteur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['id_vendeur']))
+								    {?>
+									<input type="hidden"  name = "id_vendeur" value="<?= $_SESSION['id_vendeur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['pseudo_admin']))
+								    {?>
+									<input type="hidden"  name = "pseudo_admin" value="<?= $_SESSION['pseudo_admin'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
+								    {?>
+								    <input type="hidden"  name = "" value="">
+								    <?php
+							        }?> 
+
+
+
+
+
+								</td>
+								<td><input  class="bouton" type="submit" name="recherchevalider" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+
 							</tr>
 						</table>
 
@@ -299,7 +331,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 							<li class = "style" style="margin-top: 25px; margin-left: 70px; margin-bottom : 20px;width: 250px;"> Titre : <?= $info['nom'] ?> <br>Categorie : <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br> Détails : <?= $info['description'] ?><br><br> Prix de l'enchère : <br> <strong>
 							
-							<?= $info['prix_surencheri'] ?>€ </strong><br><br> Montant max a battre : <strong><?= $info['montant_acheteur'] ?>€ </strong><br> <br>Date de fin: <?= $info['date_fin'] ?> <br> Heure de fin : <?= $info['heure_fin'] ?><br><br> Surenchérir : 
+							<?= $info['prix_surencheri'] ?>€ </strong><br><br> Montant max a battre : <strong><?= $info['montant_acheteur'] ?>€ </strong><br> <br>Date de fin: <?= $info['date_fin'] ?> <br><br> Surenchérir : 
 
 							<form action="" method="post">
 							<input type="hidden" name="idproduit" value="<?php echo $info['id_produit']?>">

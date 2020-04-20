@@ -3,7 +3,7 @@ session_start();
 
 $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
 
-if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0) OR (!isset($_GET['id_vendeur']) AND isset($_GET['id_acheteur'])) OR (isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR (!isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR isset($_GET['pseudo_admin']) OR isset($_GET['item']))
+if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['id_vendeur']) AND $_GET['id_vendeur'] > 0) OR (!isset($_GET['id_vendeur']) AND isset($_GET['id_acheteur'])) OR (isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR (!isset($_GET['id_vendeur']) AND !isset($_GET['id_acheteur'])) OR isset($_GET['pseudo_admin']))
 {
 
     $changemain = "main.php";
@@ -18,8 +18,6 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     $changevendre = "";
     $changecondition = "conditions.php";
     $changeenchere = "enchere.php";
-
-     $changefichepanier = "fichepanier.php";
 
 
     
@@ -44,8 +42,6 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecondition = "conditions.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changecompteC = "panier.php?id_acheteur=".$_SESSION['id_acheteur']."";
             $changeenchere = "enchere.php?id_acheteur=".$_SESSION['id_acheteur']."";
-
-            $changefichepanier = "fichepanier.php?id_acheteur=".$_SESSION['id_acheteur']."";
 	    }
     }
 
@@ -69,8 +65,6 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecondition = "conditions.php?id_vendeur=".$_SESSION['id_vendeur']."";
             $changecompteC = "";
             $changeenchere = "enchere.php?id_vendeur=".$_SESSION['id_vendeur']."";
-
-            $changefichepanier = "fichepanier.php?id_vendeur=".$_SESSION['id_vendeur']."";
 	    }
     }
 
@@ -94,24 +88,15 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
             $changecondition = "conditions.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changecompteC = "panier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
             $changeenchere = "enchere.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
-
-            $changefichepanier = "fichepanier.php?pseudo_admin=".$_SESSION['pseudo_admin']."";
 	    }
     }
 
-    if(isset($_GET['supprime']) AND !empty($_GET['supprime']))
-   {
-   	    $supprime = (int) $_GET['supprime'];
-   	    $req = $bdd->prepare("DELETE FROM panierventre WHERE id_produit = ?");
-   	    $req->execute(array($supprime));
+    if(isset($_GET['r']) AND !empty($_GET['r']))
+    {
+    	$r = htmlspecialchars($_GET['r']);
+    	$article = $bdd->query('SELECT * FROM produit WHERE nom LIKE "%'.$r.'%" ');
 
-   	     header("Location: panier.php?id_acheteur=".$_SESSION['id_acheteur']);
-   }
-
-    $getidacheteur = $_GET['id_acheteur'];
-    $userinfosA = $bdd->query("SELECT * FROM panierventre WHERE id_acheteur = '$getidacheteur'"); 
-    
-
+    } 
 
 ?>
 
@@ -155,42 +140,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 					<form method="GET" action="recherche.php">
 						<table>
-
 							<tr>
 								<td> <input type="Search" name ="r" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
 								</td>
-								<td>
-									<?php if(isset($_GET['id_acheteur']))
-								    {?>
-									<input type="hidden"  name = "id_acheteur" value="<?= $_SESSION['id_acheteur'] ?>">
-									<?php
-							        }?>
-
-							        <?php if(isset($_GET['id_vendeur']))
-								    {?>
-									<input type="hidden"  name = "id_vendeur" value="<?= $_SESSION['id_vendeur'] ?>">
-									<?php
-							        }?>
-
-							        <?php if(isset($_GET['pseudo_admin']))
-								    {?>
-									<input type="hidden"  name = "pseudo_admin" value="<?= $_SESSION['pseudo_admin'] ?>">
-									<?php
-							        }?>
-
-							        <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
-								    {?>
-								    <input type="hidden"  name = "" value="">
-								    <?php
-							        }?> 
-
-
-
-
-
-								</td>
 								<td><input  class="bouton" type="submit" name="recherchevalider" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-
 							</tr>
 						</table>
 
@@ -269,73 +222,85 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	</nav>
 
 
-	 <!--PARTIE DU MILIEU---------------------------------------------------------->
+    <!--PARTIE DU MILIEU---------------------------------------------------------->
 	<div class="milieu">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12" style="height:45px; color: white; background-color: black">
-					<h3>Your cart</h3>
-				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12" style="">
 
+					<div class="slider">
+						<div class="slides">
+							<div class="slide"><img src="images/image1.png" alt="image1" style="margin-left: -14px;min-width: 100%;"></div>
+							<div class="slide"><img src="images/image2.png" alt="image2" style="margin-left: -14px;min-width: 100%;"></div>
+							<div class="slide"><img src="images/image3.png" alt="gris" style="margin-left: -14px;min-width: 100%;"></div>
+
+							<!--width="1290" height="280" width="1305" height="280" width="1300" height="280"-->
+							
+						</div>
+
+					</div>
+					
+				</div>
 			</div>
 
-			<div class="row" style="margin-top: 15px; margin-bottom: 15px;">
-				<div class="col-lg-12 col-md-12 col-md-12">
+              <div class="row">
+				       <div class="col-lg-11 col-md-11 col-sm-12">
 
-                <?php if(isset($_GET['id_acheteur']))
-				 {?>
-					<ul style="list-style: none;">
-							<?php for ($i=0; $i < $info = $userinfosA->fetch() ; $i++) { 
+					       <h4 class="style" style="margin-top: 10px;">Recherche effectuée</h4>
+				     </div>
+			  </div>
+
+        <div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12" style="margin-bottom: 30px;">
+
+                 <ul style="list-style: none;text-align: center; margin-left: -50px;">
+							<?php for ($i=0; $i < $info = $article->fetch(); $i++) { 
+								    
 								# code...
-							  ?>
+							 ?>
 
-							<li  style="margin-top: 25px; margin-left: -25px;">
+							<li class = "style" style="margin-top:20px; margin-left: 30px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br><?= $info['prix'] ?>€<br> 
+								<a <?php if(isset($_GET['id_acheteur']))
+								{?>
+								href="<?php echo "achatbid.php?id_acheteur=".$_GET['id_acheteur']."&item=".$info['id_produit']."" ?>" 
+                                <?php
+							    }?> 
 
-								<table>
-									<tr>
-										<td> <img src="<?php echo $info['photo']?>" class = "style" width="300" height="300"></td>
-								         <td class = "style" style="margin-left: 30px;font-size: 20px;margin-top: 125px;"><?= $info['nom'] ?></td>
-								         <td class = "style" style="margin-left: 30px; font-size: 20px;margin-top: 125px;"><?= $info['description'] ?></td>
-								         <td class = "style"style="margin-left: 30px;font-size: 20px;margin-top: 125px;"><?= $info['prix']?>$</td>
+							    <?php if(isset($_GET['id_vendeur']))
+								{?>
+								href="<?php echo "achatbid.php?id_vendeur=".$_GET['id_vendeur']."&item=".$info['id_produit']."" ?>"
+                                <?php
+							    }?> 
 
-									</tr>
+							    <?php if(isset($_GET['pseudo_admin']))
+								{?>
+								href="<?php echo "achatbid.php?pseudo_admin=".$_GET['pseudo_admin']."&item=".$info['id_produit']."" ?>" 
+                                <?php
+							    }?> 
 
-									<tr>
-										
-										<td class = "style"style="margin-left: 30px;font-size: 25px;margin-top: 35px"><a href="<?php echo "fichepanier.php?id_acheteur=".$_GET['id_acheteur']."&item=".$info['id_produit']."" ?>" class="style"> BUY NOW
-										</a></td>
+							    <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
+								{?>
+								href="<?php echo "achatbid.php?item=".$info['id_produit']."" ?>"> 
+                                <?php
+							    }?>  <br> voir l'article</a> </li>
 
-										<td class = "style"style="margin-left: 15px;font-size: 25px;margin-top: 35px"><a href="panier.php?supprime=<?= $info['id_produit']?>">Supprimer</a> </td>
-										
-									</tr>					
-								</table> 
-								                              
-							    
-							 </li>
 							<?php
+							  
 						     }
 							?>
 					        </ul>
-  
-					    <?php
-					     }
-					     else
-					      {?>
-					      	<h5>Panier vide veuillez-vous <a href="connexion.php">connectez</a></h5>
-                           <?php
-					      }?>
-					
-					
-				</div>
+
+
+</div>
 				
 			</div>
 		</div>
-	</div>
+
+	</div>			
 
 
-
-     <!--FOOTER ---------------------------------------------------------->
-     <footer class="footbar">
+	<!--FOOTER ---------------------------------------------------------->
+	<footer class="footbar">
 
 		<div class="container-fluid">
 			<div class="row">
@@ -369,7 +334,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 							<li class="footer-link" style="font-size: 15px; width:200px;">Carrière</li>
 							<li class="footer-link" style="font-size: 15px; width:200px;">Blog</li>
 							<li class="footer-link" style="font-size: 15px; width:200px;">Impressions</li>
-							<li class="footer-link" style="font-size:15px; width: 200px;"><a href="<?php echo $changecondition?>">Conditions d'utilisation</li></a>
+							<li class="footer-link" style="font-size:15px; width: 200px;"><a href="<?php echo $changecondition  ?>">Conditions d'utilisation</li></a>
 							<li  class="footer-link" style="font-size: 15px; width: 200px ">Politique de confidentialité</li>
 						</ul>
 					</div>
@@ -397,5 +362,6 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 </html>
 
 <?php 
+
 }
 ?>

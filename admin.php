@@ -17,9 +17,18 @@ session_start();
    	    $req->execute(array($supprimea));
    }
 
+   if(isset($_GET['supprimep']) AND !empty($_GET['supprimep']))
+   {
+   	    $supprimep = $_GET['supprimep'];
+   	    $req = $bdd->prepare("UPDATE produit SET statut = 'vendu' WHERE  id_produit = ?");
+   	    $req->execute(array($supprimep));
+   }
+
    $vendeur = $bdd->query("SELECT * FROM vendeur"); 
 
-   $acheteur = $bdd->query("SELECT * FROM acheteur");   
+   $acheteur = $bdd->query("SELECT * FROM acheteur");
+
+   $produit = $bdd->query("SELECT * FROM produit");   
 
 ?>
 
@@ -62,17 +71,49 @@ session_start();
 
 				<div class="col-lg-8 col-md-8 col-sm-12">
 
-					<form>
+					<form method="GET" action="recherche.php">
 						<table>
-							<tr>
-								<td> <input type="search" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
-								</td>
-								<td><input  class="bouton" type="submit" name="" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
-							</tr>
 
+							<tr>
+								<td> <input type="Search" name ="r" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
+								</td>
+								<td>
+									<?php if(isset($_GET['id_acheteur']))
+								    {?>
+									<input type="hidden"  name = "id_acheteur" value="<?= $_SESSION['id_acheteur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['id_vendeur']))
+								    {?>
+									<input type="hidden"  name = "id_vendeur" value="<?= $_SESSION['id_vendeur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['pseudo_admin']))
+								    {?>
+									<input type="hidden"  name = "pseudo_admin" value="<?= $_SESSION['pseudo_admin'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
+								    {?>
+								    <input type="hidden"  name = "" value="">
+								    <?php
+							        }?> 
+
+
+
+
+
+								</td>
+								<td><input  class="bouton" type="submit" name="recherchevalider" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+
+							</tr>
 						</table>
 
-					
+					   
+
 
 					</form>
 					
@@ -145,7 +186,7 @@ session_start();
 			</div>
 
 			<div class="row">
-				<div class="col-lg-11 col-md-11 col-sm-12" style="height:500px; border: 1px solid black; margin-left:50px; margin-bottom: 40px; margin-top: 15px;">
+				<div class="col-lg-11 col-md-11 col-sm-12" style=" border: 1px solid black; margin-left:50px; margin-bottom: 40px; margin-top: 15px;">
 
 					<table>
 						<tr>
@@ -163,7 +204,7 @@ session_start();
 							?>
 					</ul>
 						
-				      	<a href="sedeconnecteradmin.php"><center><input type="button" value=" Se Déconnecter" style="background-color: red; color: white; margin-top: 25px;width: 220px; height: 55px; font-size: 25px;" ></center></a>
+				      	
 
 
 
@@ -181,6 +222,25 @@ session_start();
 						     }
 							?>
 					</ul>
+
+					<table>
+						<tr>
+							<td><h5 class="style"; style="margin-top: 10px;">Gestion des produits</h5></td>
+						</tr>
+					</table>
+
+					<ul>
+							<?php while($p = $produit->fetch()){?>
+
+							<li><?= $p['id_produit'] ?> - <strong>titre :</strong> <?= $p['nom'] ?> - <strong>statut : </strong><?= $p['statut'] ?> - <a href="admin.php?supprimep=<?= $p['id_produit']?>">Supprimer</a> 
+							<?php
+						     }
+							?>
+					</ul>
+
+
+					<a href="sedeconnecteradmin.php"><center><input type="button" value=" Se Déconnecter" style="background-color: red; color: white; margin-top: 25px;width: 220px; height: 55px; font-size: 25px;" ></center></a>
+						
 						
 				      	
 				</div>

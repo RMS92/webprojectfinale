@@ -284,7 +284,11 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
                             <p><label>Prix de départ des enchères :<input type="number" name="PrixE" /> €</label></p>
                             <p><label>Photo :<input type="file" name="Photo" accept="image/*"/></label></p>
                             <p><label>Video :<input type="file" name="Video" accept="video/*"/></label></p>
-                            <p><input type="submit" value="Ajouter l'item" /></p>
+
+                            <p>
+                                 <?php if(isset($_GET["id_vendeur"])){?>
+                            	<input type="submit" value="Ajouter l'item" /></p>
+                            	 <?php } ?>
                         </form>
 					
 

@@ -91,6 +91,8 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
+    
+
     $userinfosA = $bdd->query("SELECT * FROM produit WHERE statut = 'non vendu' ORDER BY RAND() LIMIT 5"); 
 
 
@@ -134,12 +136,44 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 				<div class="col-lg-8 col-md-8 col-sm-12">
 
-					<form>
+					<form method="GET" action="recherche.php">
 						<table>
+
 							<tr>
-								<td> <input type="search" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
+								<td> <input type="Search" name ="r" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
 								</td>
-								<td><input  class="bouton" type="submit" name="" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+								<td>
+									<?php if(isset($_GET['id_acheteur']))
+								    {?>
+									<input type="hidden"  name = "id_acheteur" value="<?= $_SESSION['id_acheteur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['id_vendeur']))
+								    {?>
+									<input type="hidden"  name = "id_vendeur" value="<?= $_SESSION['id_vendeur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['pseudo_admin']))
+								    {?>
+									<input type="hidden"  name = "pseudo_admin" value="<?= $_SESSION['pseudo_admin'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
+								    {?>
+								    <input type="hidden"  name = "" value="">
+								    <?php
+							        }?> 
+
+
+
+
+
+								</td>
+								<td><input  class="bouton" type="submit" name="recherchevalider" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+
 							</tr>
 						</table>
 
@@ -257,22 +291,22 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 								# code...
 							 ?>
 
-							<li class = "style" style="margin-top:20px; margin-left: 30px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br><?= $info['prix'] ?>$<br> 
+							<li class = "style" style="margin-top:20px; margin-left: 30px;"><?= $info['nom'] ?> <br> <?= $info['categorie'] ?> <br> <img src="<?php echo $info['photo']?>" width="200" height="200"><br><?= $info['prix'] ?>€<br> 
 								<a <?php if(isset($_GET['id_acheteur']))
 								{?>
-								href="<?php echo "achatbid.php?id_acheteur=".$_GET['id_acheteur']."&item=".$info['id_produit']."" ?>" 
+								href="<?php echo "achatbid.php?id_acheteur=".$_SESSION['id_acheteur']."&item=".$info['id_produit']."" ?>" 
                                 <?php
 							    }?> 
 
 							    <?php if(isset($_GET['id_vendeur']))
 								{?>
-								href="<?php echo "achatbid.php?id_vendeur=".$_GET['id_vendeur']."&item=".$info['id_produit']."" ?>"
+								href="<?php echo "achatbid.php?id_vendeur=".$_SESSION['id_vendeur']."&item=".$info['id_produit']."" ?>"
                                 <?php
 							    }?> 
 
 							    <?php if(isset($_GET['pseudo_admin']))
 								{?>
-								href="<?php echo "achatbid.php?pseudo_admin=".$_GET['pseudo_admin']."&item=".$info['id_produit']."" ?>" 
+								href="<?php echo "achatbid.php?pseudo_admin=".$_SESSION['pseudo_admin']."&item=".$info['id_produit']."" ?>" 
                                 <?php
 							    }?> 
 

@@ -81,12 +81,44 @@ $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
 
 				<div class="col-lg-8 col-md-8 col-sm-12">
 
-					<form>
+					<form method="GET" action="recherche.php">
 						<table>
+
 							<tr>
-								<td> <input type="search" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
+								<td> <input type="Search" name ="r" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
 								</td>
-								<td><input  class="bouton" type="submit" name="" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+								<td>
+									<?php if(isset($_GET['id_acheteur']))
+								    {?>
+									<input type="hidden"  name = "id_acheteur" value="<?= $_SESSION['id_acheteur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['id_vendeur']))
+								    {?>
+									<input type="hidden"  name = "id_vendeur" value="<?= $_SESSION['id_vendeur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['pseudo_admin']))
+								    {?>
+									<input type="hidden"  name = "pseudo_admin" value="<?= $_SESSION['pseudo_admin'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
+								    {?>
+								    <input type="hidden"  name = "" value="">
+								    <?php
+							        }?> 
+
+
+
+
+
+								</td>
+								<td><input  class="bouton" type="submit" name="recherchevalider" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+
 							</tr>
 						</table>
 

@@ -188,12 +188,44 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
 				<div class="col-lg-8 col-md-8 col-sm-12">
 
-					<form>
+					<form method="GET" action="recherche.php">
 						<table>
+
 							<tr>
-								<td> <input type="search" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
+								<td> <input type="Search" name ="r" placeholder="Search for products..."style="width: 750px; height: 35px; margin-left: 18px; margin-top: 12px; border-color:#DCDCDC #696969 #696969 #DCDCDC; -webkit-border-radius:5px;">
 								</td>
-								<td><img class="petitlogo" src="images/loupe.png" width="25px" style="margin-left: 0px;"></td>
+								<td>
+									<?php if(isset($_GET['id_acheteur']))
+								    {?>
+									<input type="hidden"  name = "id_acheteur" value="<?= $_SESSION['id_acheteur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['id_vendeur']))
+								    {?>
+									<input type="hidden"  name = "id_vendeur" value="<?= $_SESSION['id_vendeur'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(isset($_GET['pseudo_admin']))
+								    {?>
+									<input type="hidden"  name = "pseudo_admin" value="<?= $_SESSION['pseudo_admin'] ?>">
+									<?php
+							        }?>
+
+							        <?php if(!isset($_GET['id_acheteur']) AND !isset($_GET['id_vendeur']) AND !isset($_GET['pseudo_admin']))
+								    {?>
+								    <input type="hidden"  name = "" value="">
+								    <?php
+							        }?> 
+
+
+
+
+
+								</td>
+								<td><input  class="bouton" type="submit" name="recherchevalider" value="OK" style="cursor: pointer; -webkit-border-radius:5px;"></td>
+
 							</tr>
 						</table>
 
@@ -329,8 +361,8 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 					</tr>
 					<tr>
  
-				     <td><h6 class="style" style="background: black; color: white; margin-top: 20px;margin-left:135px;">Prix: <?php echo $articleinfos['prix'];?></h6>
-					<h6 class="style" style="background: black; color: white;margin-top: 20px; margin-left: 15px;">Best bid(buyer):</h6></td>
+				     <td><h6 class="style" style="background: black; color: white; margin-top: 20px;margin-left:200px;font-size: 20px;">Prix: <?php echo $articleinfos['prix'];?> €</h6>
+					</td>
 					</tr>
 
 					</table>
@@ -341,13 +373,13 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 				<div class="col-lg-6 col-md-6 col-md-6" style="height: 380px; margin-top: 50px; border: 1px solid black;">
 
 					<h4 class="style" style="margin-left: 140px; margin-top: 60px;">Place a bid</h4>
-					<h6 class="style" style="background: black; color: white; margin-top: 140px; margin-left: -167px;">Best bid:</h6>
+					<h6 class="style" style="background: black; color: white; margin-top: 140px; margin-left: -167px;">Best bid :</h6>
 					<p style="margin-top: 185px;margin-left: 120px">A good one is around or higher than the best bid</p>
 					<h6 class="style" style="margin-top: 0px; margin-left: 100px;cursor: pointer; -webkit-border-radius:5px;">place your bid:</h6>
 
 					<form method="POST">
 
-					<input type="text" name="bid" placeholder="Best bid : <?php echo $articleofre['offre_acheteur'];?>" value=""
+					<input type="text" name="bid" placeholder="Best bid : <?php echo $articleofre['offre_acheteur'];?> €" value=""
 					style="margin-top:45px;margin-left:-115px;cursor: pointer; -webkit-border-radius:5px;">
 
 					<?php
