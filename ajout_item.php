@@ -80,7 +80,7 @@
             	}
                     
                     // Insertion d'un nouvel enchère
-                    $sql="INSERT INTO enchere(date_fin, heure_fin, prix_surencheri, statut_vente, id_produit, id_vendeur) VALUES ('$date', '$heure', '$prix_enchere', 'non vendu','$id_item', '$id_vendeur')";
+                    $sql="INSERT INTO enchere(date_fin, heure_fin, prix_surencheri, statut_vente, montant_acheteur, id_produit, id_vendeur) VALUES ('$date', '$heure', '$prix_enchere', 'non vendu', '$prix_enchere','$id_item', '$id_vendeur')";
                     $result = mysqli_query($db_handle, $sql);
                     
                     echo "Félicitations !<br>". ' ' ."La vente a commencé !";
@@ -94,7 +94,7 @@
             elseif(($n_vente_1=="MeilleuresOffres")&&($n_vente_2==""))
             {
                 // Insertion d'un nouvel item
-                 $sql = "INSERT INTO produit(nom, prix, categorie, description, photo, video, id_vendeur) VALUES ('$intitule', '$prix', '$categorie', '$description', '$name', '$video','$id_vendeur')";
+                  $sql="INSERT INTO enchere(date_fin, heure_fin, prix_surencheri, statut_vente, id_produit, id_vendeur) VALUES ('$date', '$heure', '$prix_enchere', 'non vendu','$id_item', '$id_vendeur')";
 
                 $result = mysqli_query($db_handle, $sql) or die(mysqli_error($db_handle));
                 $sql = "SELECT * FROM produit ";
@@ -178,7 +178,7 @@
 	            	}
                     
                     // Insertion d'un nouvel enchère
-                    $sql="INSERT INTO enchere(date_fin, heure_fin, prix_surencheri, statut_vente, id_produit, id_vendeur) VALUES ('$date', '$heure', '$prix_enchere', 'non vendu', '$id_item', '$id_vendeur')";
+                    $sql="INSERT INTO enchere(date_fin, heure_fin, prix_surencheri, statut_vente, id_produit, id_vendeur) VALUES ('$date', '$heure', '$prix_enchere', 'non vendu','$id_item', '$id_vendeur')";
                     $result = mysqli_query($db_handle, $sql);
 
                     // Insertion d'une nouvel achat immédiat

@@ -91,10 +91,11 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 	    }
     }
 
-    $getidacheteur = $_GET['id_acheteur']; 
+    
 
     if(isset($_POST['enchere']) AND isset($_GET['id_acheteur']))
     {
+    	$getidacheteur = $_GET['id_acheteur']; 
     	$getidproduit = $_POST['idproduit'];
     	$getprix = $_POST['prix'];
     	$getmontant = $_POST['montant'];
@@ -108,7 +109,7 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
     	 	if($getmontant > $getprix)
     	 	{
-    	        $getprix = $getprix + 1;
+    	 		$getprix = $getmontant;
 
     	        $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
     	        $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
@@ -122,22 +123,27 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     	 else if($getidacheteur != $getidach)
     	     {  
 
-    	     	$reqmontant = $bdd->query("SELECT * FROM enchere WHERE id_acheteur = '$getidach'");
+    	     	$reqmontant = $bdd->query("SELECT * FROM enchere WHERE id_acheteur = '$getidach' AND id_produit = '$getidproduit'");
     	     	$montantpreced = $reqmontant->fetch();
 
-    	     	
-
-    	     	if($getmontant > $montantpreced['montant_acheteur'])
+    	     	if($montantpreced['montant_acheteur'] == 0)
     	     	{
+    	     		$getprix = $getmontant;
+    	     		
+    	     	    $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
+    	             $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
+    	     	}
+    	     	else if($montantpreced['montant_acheteur'] > 0)
+    	     	{
+    	     		
     	     		 $getprix = $montantpreced['montant_acheteur'] + 1;
 
     	     		 $req = $bdd->prepare("UPDATE enchere SET prix_surencheri = ?, montant_acheteur = ?, id_acheteur = ? WHERE id_produit = ?");
     	             $req->execute(array($getprix, $getmontant,  $getidacheteur, $getidproduit));
+    	     	    
+    	     	    
     	     	}
-    	     	else
-    	     	{
-   	     	        $message = "Montant maximal trop faible pour Surenchérir";
-    	     	}
+    	     	    
     	    }
     	     	
 
@@ -300,10 +306,10 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 							<input type="submit" name= "enchere" value="Valider Surenchère" style="margin-bottom: 15px" />
 							</form>
 							<?php
-				              if(isset($message)){
-					             echo '<p style="cursor:pointer;background: white; color: red;">'. $message."</p>";
-				                 }
-				              ?>
+				           if(isset($message)){
+					         echo '<p style="cursor:pointer;background: white; color: red;">'. $message."</p>";
+				               }
+				           ?>
 
 							  
 							</li>
