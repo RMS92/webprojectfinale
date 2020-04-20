@@ -10,7 +10,16 @@ session_start();
    	    $req->execute(array($supprime));
    }
 
-   $vendeur = $bdd->query("SELECT * FROM vendeur");   
+   if(isset($_GET['supprimea']) AND !empty($_GET['supprimea']))
+   {
+   	    $supprimea = $_GET['supprimea'];
+   	    $req = $bdd->prepare("DELETE FROM acheteur WHERE id_acheteur = ?");
+   	    $req->execute(array($supprimea));
+   }
+
+   $vendeur = $bdd->query("SELECT * FROM vendeur"); 
+
+   $acheteur = $bdd->query("SELECT * FROM acheteur");   
 
 ?>
 
@@ -155,6 +164,25 @@ session_start();
 					</ul>
 						
 				      	<a href="sedeconnecteradmin.php"><center><input type="button" value=" Se Déconnecter" style="background-color: red; color: white; margin-top: 25px;width: 220px; height: 55px; font-size: 25px;" ></center></a>
+
+
+
+				      	<table>
+						<tr>
+							<td><h5 class="style"; style="margin-top: 10px;">Gestion des acheteurs</h5></td>
+						</tr>
+					</table>
+
+					<ul>
+							<?php while($a = $acheteur->fetch()){?>
+
+							<li><?= $a['id_acheteur'] ?> : <?= $a['email'] ?> - <a href="admin.php?supprimea=<?= $a['id_acheteur']?>">Supprimer</a> 
+							<?php
+						     }
+							?>
+					</ul>
+						
+				      	
 				</div>
 			</div>
 		</div>

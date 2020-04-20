@@ -233,7 +233,15 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 						<table>
 							<tr>
 								<td></td>
-								<td ><input type="hidden"  style="margin-top: 10px;" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" /></td>
+								<td >
+
+                                  <?php if(isset($_GET["id_vendeur"])){?>
+									<input type="hidden"  style="margin-top: 10px;" name="id_vendeur" value="<?php echo $_GET['id_vendeur'];?>" />
+								  <?php } ?>
+
+
+
+								</td>
 							</tr>
 							<tr>
 								<td>Nom :</td>

@@ -152,7 +152,9 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
 
     }
 
-             $userinfosA = $bdd->query("SELECT * FROM enchere INNER JOIN produit ON enchere.id_produit = produit.id_produit"); 
+
+
+             $userinfosA = $bdd->query("SELECT * FROM enchere INNER JOIN produit ON enchere.id_produit = produit.id_produit WHERE enchere.date_fin >= DATE( NOW() )"); 
 ?>
 
 
