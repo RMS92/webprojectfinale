@@ -113,10 +113,11 @@ if((isset($_GET['id_acheteur']) AND $_GET['id_acheteur'] > 0) OR (isset($_GET['i
     	$getidacheteur = $_GET['id_acheteur'];
         $userinfosA = $bdd->query("SELECT * FROM panierventre WHERE id_acheteur = '$getidacheteur'");
     }
+    if(!isset($_GET['id_acheteur'])){
+    	 $userinfosA = $bdd->query("SELECT * FROM panierventre");
+    }
 
-    $userinfosA = $bdd->query("SELECT * FROM panierventre");
      
-    
 
 
 ?>

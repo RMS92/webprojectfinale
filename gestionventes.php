@@ -25,6 +25,10 @@ $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
    	    $accepte = $_GET['accepte'];
    	    $req = $bdd->prepare("UPDATE produit SET statut = 'vendu' WHERE id_produit = ?");
    	    $req->execute(array($accepte));
+
+
+   	    $req4 = $bdd->prepare("UPDATE produit SET statut = 'vendu' WHERE id_produit = ?");
+   	    $req4->execute(array($accepte));
     }
 
      if(isset($_POST['valider']))
@@ -36,7 +40,7 @@ $bdd = new PDO("mysql:host=127.0.0.1;dbname=ebayece;charset=utf8", "root", "");
     }
 
     $getvendeur = $_SESSION['id_vendeur'];
-	$vendeur = $bdd->query("SELECT * FROM offre WHERE id_vendeur = '$getvendeur'"); 
+	$vendeur = $bdd->query("SELECT * FROM offre WHERE id_vendeur = '$getvendeur' AND statut='non vendu'"); 
 
 ?>
 
